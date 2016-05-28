@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    applicationId "com.tarek360.instacapture"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+
+    versionCode 1
+    versionName "1.0"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile "junit:junit:$rootProject.ext.junitVersion"
+  compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+  compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+  compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+  compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+
+  compile 'com.github.tarek360:instacapture:0.3'
+
+}

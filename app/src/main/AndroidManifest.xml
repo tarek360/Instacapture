@@ -1,0 +1,83 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tarek360.sample">
+
+
+  <application
+      android:allowBackup="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme">
+    <activity android:name=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".MapFragmentSampleActivity"
+        android:label="@string/sample_google_map_fragment"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+
+
+    <activity
+        android:name=".MapViewSampleActivity"
+        android:label="@string/sample_google_map_view"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+    <activity
+        android:name=".DialogSampleActivity"
+        android:label="@string/sample_dialog"
+        android:parentActivityName=".MainActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+    <activity
+        android:name=".MapAndDialogSampleActivity"
+        android:label="@string/sample_map_dialog"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+    <activity android:name=".ShowScreenShotActivity"/>
+    <activity
+        android:name=".CustomViewSampleActivity"
+        android:label="@string/sample_custom_view"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+    <activity
+        android:name=".IgnoreViewsSampleActivity"
+        android:label="@string/sample_ignore_views"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyACOgkkILLrGAmIpv_EPsv-6q2ZJ4cVL08"/>
+
+  </application>
+
+</manifest>

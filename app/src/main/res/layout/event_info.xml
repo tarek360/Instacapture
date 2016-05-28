@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="@dimen/text_margin"
+    android:paddingRight="@dimen/text_margin"
+    android:paddingLeft="@dimen/text_margin"
+    android:gravity="center"
+>
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/event_name"
+      android:textSize="@dimen/title_text_size"
+      android:textStyle="bold"
+      android:gravity="left"
+      android:textColor="#2E7D32"/>
+
+
+  <TextView
+      android:id="@+id/address"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/event_address"
+      android:textSize="@dimen/address_text_size"
+      android:textStyle="bold"
+      android:gravity="left"
+      android:textColor="#01579B"
+      android:layout_below="@+id/year"
+      android:layout_alignLeft="@+id/title"/>
+
+  <TextView
+      android:id="@+id/date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/event_date"
+      android:textSize="@dimen/address_text_size"
+      android:textStyle="bold"
+      android:gravity="left"
+      android:textColor="#FFFFFF"
+      android:layout_below="@+id/address"
+      android:layout_alignLeft="@+id/title"/>
+
+</LinearLayout>
+
+

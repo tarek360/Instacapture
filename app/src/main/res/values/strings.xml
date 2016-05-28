@@ -1,0 +1,42 @@
+<resources>
+  <string name="app_name">InstaCapture</string>
+
+  <string name="large_text">
+
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
+    "when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    "It has survived not only five centuries, but also the leap into electronic typesetting,"
+    "remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset"
+    "sheets containing Lorem Ipsum passages, and more recently with desktop publishing software."
+    "Aldus PageMaker including versions of Lorem Ipsum."
+  </string>
+
+  <string name="event_name">Green Cities Forum</string>
+  <string name="event_address">The Pyramid Road, Egypt</string>
+  <string name="event_date">5–7 Sep 2017</string>
+
+
+  <string name="show_dialog">Show Dialog</string>
+
+  <string name="sample_google_map_view">Google Map View</string>
+  <string name="sample_google_map_fragment">Google Map Fragment</string>
+  <string name="sample_dialog">Dialog</string>
+  <string name="sample_map_dialog">Google Map and Dialog</string>
+  <string name="sample_ignore_views">Ignore Views</string>
+  <string name="sample_custom_view">Custom View</string>
+
+
+  <string name="dialog_title">Dialog</string>
+  <string name="dialog_message">Do you want capture me ?</string>
+  <string name="title_activity_ignore_views_sample">IgnoreViewsSampleActivity</string>
+
+  <string name="first_text">TextView</string>
+  <string name="second_text">Button</string>
+  <string name="third_text">Third Text</string>
+  <string name="check_to_ignore">Uncheck view or more to ignore from screenshot</string>
+  <string name="title_activity_scrolling">ScrollingActivity</string>
+  <string name="action_settings">Settings</string>
+
+
+</resources>

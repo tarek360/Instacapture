@@ -1,0 +1,25 @@
+<resources>
+
+  <dimen name="activity_padding">16dp</dimen>
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+  <dimen name="text_margin">16dp</dimen>
+
+  <!--splash text size (related items)-->
+  <dimen name="title_text_size">26dp</dimen>
+  <dimen name="year_text_size">32dp</dimen>
+  <dimen name="address_text_size">16dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+
+  <dimen name="text_main">24sp</dimen>
+
+
+  <dimen name="sample_button_height">56dp</dimen>
+  <dimen name="sample_button_spacing">4dp</dimen>
+  <dimen name="ignoredViews_marginTop">16dp</dimen>
+  <dimen name="app_bar_height">180dp</dimen>
+
+</resources>
