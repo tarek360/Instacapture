@@ -11,9 +11,13 @@ import java.util.Locale;
 /**
  * Created by tarek on 5/18/16.
  */
-public class Utility {
+public final class Utility {
 
   private static final String SCREENSHOTS_DIRECTORY_NAME = "screenshots";
+
+  private Utility() throws InstantiationException {
+    throw new InstantiationException("This utility class is not created for instantiation");
+  }
 
   public static File getScreenshotFile(@NonNull final Context applicationContext) {
 
