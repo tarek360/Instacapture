@@ -1,4 +1,4 @@
-# InstaCapture v0.4
+# InstaCapture v0.42
 Android library to capture screenshot from your app
 
 ### Fast Usage
@@ -22,7 +22,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:master-SNAPSHOT"
+	 compile "com.github.tarek360:instacapture:0.42"
 }
 ```
 
