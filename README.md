@@ -22,7 +22,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile 'com.github.tarek360:instacapture:0.4'
+	 compile 'com.github.tarek360:instacapture:0.3'
 }
 ```
 
