@@ -1,4 +1,5 @@
-# InstaCapture v0.42
+# InstaCapture [![Release](https://jitpack.io/v/tarek360/instacapture.svg)](https://jitpack.io/#tarek360/instacapture)
+
 Android library to capture screenshot from your app
 
 ### Fast Usage
