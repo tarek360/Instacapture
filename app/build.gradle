@@ -28,6 +28,6 @@ dependencies {
   compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
   compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
 
-  compile 'com.github.tarek360:instacapture:0.3'
+  compile project(':instacapture')
 
 }

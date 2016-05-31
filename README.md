@@ -1,4 +1,4 @@
-# InstaCapture v0.3
+# InstaCapture v0.4
 Android library to capture screenshot from your app
 
 ### Fast Usage
@@ -41,7 +41,7 @@ allprojects {
 
 - To capture a screenshot with ScreenCaptureListener.
 ```java
-   InstaCapture.getInstance(this).setScreenCapturingListener(new ScreenCaptureListener() {
+   InstaCapture.getInstance(this).capture().setScreenCapturingListener(new ScreenCaptureListener() {
 
       @Override public void onCaptureStarted() {
           //TODO..
@@ -52,25 +52,41 @@ allprojects {
       @Override public void onCaptureComplete(File file) {
           //TODO..
       }
-    }).capture();
+    });
 ```
 
+- To capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html) to avoid ugly callback chains.
+```java
+InstaCapture.getInstance(this).captureRx().subscribe(new Subscriber<File>() {
+      @Override public void onCompleted() {
+        //TODO..
+      }
 
+      @Override public void onError(Throwable e) {
+        //TODO..
+      }
+
+      @Override public void onNext(File file) {
+        //TODO..
+      }
+    });
+```
+    
 - To ignore view(s) from the screenshot.
 ```java
-.capture(ignoredView); // view(s) must have id(s), the views which have no ids will not be ignored.
+.capture(ignoredView); or .captureRx(ignoredView); // view(s) must have id(s), the views which have no ids will not be ignored.
 ```
 
 
 - By default screenshots are save to the filesystem directory on the internal storage, but you can captuer screenshot into your file.
 ```java
-.capture(file);
+.capture(file); or .captureRx(file);
 ```
 
 
 - To captuer screenshot into your file and ignore view(s) from it.
 ```java
-.capture(file, ignoredView); // view(s) must have id(s), the views which have no ids will not be ignored.
+.capture(file, ignoredView); or .captureRx(file, ignoredView); // view(s) must have id(s), the views which have no ids will not be ignored.
 ```
 
 

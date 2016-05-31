@@ -2,6 +2,7 @@ package com.tarek360.sample;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import butterknife.ButterKnife;
@@ -39,14 +40,16 @@ public abstract class BaseSampleActivity extends AppCompatActivity
     captureScreenshot(null);
   }
 
-  protected void captureScreenshot(View[] views) {
-    InstaCapture.getInstance(this).setScreenCapturingListener(new SimpleScreenCapturingListener() {
+  protected void captureScreenshot(@Nullable View[] views) {
+    InstaCapture.getInstance(this)
+        .capture(views)
+        .setScreenCapturingListener(new SimpleScreenCapturingListener() {
 
-      @Override public void onCaptureComplete(File file) {
-        startActivity(
-            ShowScreenShotActivity.buildIntent(BaseSampleActivity.this, file.getAbsolutePath()));
-      }
-    }).capture(views);
+          @Override public void onCaptureComplete(File file) {
+            startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
+                file.getAbsolutePath()));
+          }
+        });
   }
 
   @Override protected void onStop() {

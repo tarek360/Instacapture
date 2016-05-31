@@ -29,7 +29,7 @@ import rx.functions.Func2;
 /**
  * Created by tarek on 5/17/16.
  */
-public abstract class ScreenshotProviderImpl implements ScreenshotProvider {
+public class ScreenshotProviderImpl implements ScreenshotProvider {
 
   private static Paint MAP_PAINT;
   /**
