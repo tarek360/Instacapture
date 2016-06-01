@@ -112,10 +112,8 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
       if (fragments != null) {
         for (Fragment fragment : fragments) {
           if (fragment instanceof SupportMapFragment) {
-            Logger.d("zzfragment instanceof SupportMapFragment");
             mapFragments.add((SupportMapFragment) fragment);
           }
-          Logger.d("zz fragment " + fragment);
         }
       }
     }
@@ -152,7 +150,6 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
 
       @Override public Observable<GoogleMapBitmap> call(@NonNull final MapView mapView) {
 
-        Logger.d("getMapViewBitmapsObservable list " + mapView);
         return GoogleMapBitmapObservable.getMapViewObservable(mapView);
       }
     }).toList();
@@ -167,7 +164,6 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
           @Override
           public Observable<GoogleMapBitmap> call(@NonNull final SupportMapFragment mapFragment) {
 
-            Logger.d("getMapViewBitmapsObservable list " + mapFragment);
             return GoogleMapBitmapObservable.getMapFragmentObservable(mapFragment);
           }
         })

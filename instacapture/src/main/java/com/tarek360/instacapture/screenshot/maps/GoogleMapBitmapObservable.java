@@ -9,7 +9,6 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.tarek360.instacapture.exception.MapSnapshotFailedException;
-import com.tarek360.instacapture.utility.Logger;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -29,18 +28,15 @@ public final class GoogleMapBitmapObservable {
     return Observable.create(new Observable.OnSubscribe<GoogleMapBitmap>() {
       @Override public void call(final Subscriber<? super GoogleMapBitmap> subscriber) {
 
-        Logger.d("create call");
         mapView.getMapAsync(new OnMapReadyCallback() {
           @Override public void onMapReady(@NonNull final GoogleMap gMap) {
 
             gMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
               @Override public void onSnapshotReady(@Nullable final Bitmap bitmap) {
                 if (bitmap != null) {
-                  Logger.d("onSnapshotReady bitmap != null");
                   subscriber.onNext(new GoogleMapBitmap(screenPosition, bitmap));
                   subscriber.onCompleted();
                 } else {
-                  Logger.d("onSnapshotReady bitmap == null");
                   subscriber.onError(new MapSnapshotFailedException());
                 }
               }
@@ -62,18 +58,15 @@ public final class GoogleMapBitmapObservable {
     return Observable.create(new Observable.OnSubscribe<GoogleMapBitmap>() {
       @Override public void call(final Subscriber<? super GoogleMapBitmap> subscriber) {
 
-        Logger.d("create call");
         mapFragment.getMapAsync(new OnMapReadyCallback() {
           @Override public void onMapReady(@NonNull final GoogleMap gMap) {
 
             gMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
               @Override public void onSnapshotReady(@Nullable final Bitmap bitmap) {
                 if (bitmap != null) {
-                  Logger.d("onSnapshotReady bitmap != null");
                   subscriber.onNext(new GoogleMapBitmap(screenPosition, bitmap));
                   subscriber.onCompleted();
                 } else {
-                  Logger.d("onSnapshotReady bitmap == null");
                   subscriber.onError(new MapSnapshotFailedException());
                 }
               }

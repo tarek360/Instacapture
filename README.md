@@ -12,7 +12,7 @@ InstaCapture.getInstance(this).capture();
 - Capture all the contents of the screen, includes:
    - Google Maps ([MapView](https://developers.google.com/android/reference/com/google/android/gms/maps/MapView), [SupportMapFragment](https://developers.google.com/android/reference/com/google/android/gms/maps/SupportMapFragment)) 
    - Dialogs
-- No need to set your dialog or your google maps to InstaCapture, just call capture() method.
+- No need to set your dialog or your google maps to InstaCapture, just call capture( ) method.
 - Set a specific view(s) to prevent it from capturing.
 - No permissions are required.
 
@@ -23,11 +23,11 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:0.42"
+	 compile "com.github.tarek360:instacapture:0.43"
 }
 ```
 
-Add this to your root `build.gradle` file (**not** your module `build.gradle` file):
+Add this to your root `build.gradle` file (**not** your module `build.gradle` file) :
 ```gradle
 allprojects {
 	repositories {
