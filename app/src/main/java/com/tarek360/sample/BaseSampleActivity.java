@@ -15,8 +15,6 @@ import java.io.File;
 public abstract class BaseSampleActivity extends AppCompatActivity
     implements AlertDialogFragment.OnAlertDialogListener {
 
-  private AlertDialogFragment mAlertDialogFragment;
-
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -32,7 +30,7 @@ public abstract class BaseSampleActivity extends AppCompatActivity
   }
 
   protected void showAlertDialog() {
-    mAlertDialogFragment = new AlertDialogFragment();
+    AlertDialogFragment mAlertDialogFragment = new AlertDialogFragment();
     mAlertDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
   }
 

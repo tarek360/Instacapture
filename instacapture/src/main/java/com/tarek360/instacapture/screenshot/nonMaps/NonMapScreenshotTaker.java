@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.view.View;
 import android.view.WindowManager;
 import com.tarek360.instacapture.exception.ScreenCapturingFailedException;
-import com.tarek360.instacapture.utility.Logger;
 import java.util.List;
 
 /**
@@ -67,17 +66,16 @@ public final class NonMapScreenshotTaker {
     final Canvas canvas = new Canvas(bitmap);
     canvas.translate(rootViewInfo.getRect().left, rootViewInfo.getRect().top);
 
+    int[] ignoredViewsVisibility = null;
     if (ignoredViews != null) {
-      for (View ignoreView : ignoredViews) {
-        if (ignoreView != null) {
-          int ignoreViewId = ignoreView.getId();
-          if (ignoreViewId == -1) {
-            Logger.e("The view which has no id will not be ignored.");
-          }
-          View view = rootViewInfo.getView().findViewById(ignoreViewId);
-          if (view != null) {
-            view.setVisibility(View.GONE);
-          }
+      ignoredViewsVisibility = new int[ignoredViews.length];
+    }
+
+    if (ignoredViews != null) {
+      for (int i = 0; i < ignoredViews.length; i++) {
+        if (ignoredViews[i] != null) {
+          ignoredViewsVisibility[i] = ignoredViews[i].getVisibility();
+          ignoredViews[i].setVisibility(View.INVISIBLE);
         }
       }
     }
@@ -85,12 +83,9 @@ public final class NonMapScreenshotTaker {
     rootViewInfo.getView().draw(canvas);
 
     if (ignoredViews != null) {
-      for (View ignoreView : ignoredViews) {
-        if (ignoreView != null) {
-          View view = rootViewInfo.getView().findViewById(ignoreView.getId());
-          if (view != null) {
-            view.setVisibility(View.VISIBLE);
-          }
+      for (int i = 0; i < ignoredViews.length; i++) {
+        if (ignoredViews[i] != null) {
+          ignoredViews[i].setVisibility(ignoredViewsVisibility[i]);
         }
       }
     }

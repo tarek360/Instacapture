@@ -23,7 +23,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:0.43"
+	 compile "com.github.tarek360:instacapture:0.44"
 }
 ```
 
@@ -75,7 +75,7 @@ InstaCapture.getInstance(this).captureRx().subscribe(new Subscriber<File>() {
     
 - To ignore view(s) from the screenshot.
 ```java
-.capture(ignoredView); or .captureRx(ignoredView); // view(s) must have id(s), the views which have no ids will not be ignored.
+.capture(ignoredView); or .captureRx(ignoredView);
 ```
 
 
@@ -87,7 +87,7 @@ InstaCapture.getInstance(this).captureRx().subscribe(new Subscriber<File>() {
 
 - To captuer screenshot into your file and ignore view(s) from it.
 ```java
-.capture(file, ignoredView); or .captureRx(file, ignoredView); // view(s) must have id(s), the views which have no ids will not be ignored.
+.capture(file, ignoredView); or .captureRx(file, ignoredView);
 ```
 
 
