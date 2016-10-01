@@ -1,6 +1,7 @@
 package com.tarek360.instacapture.screenshot.maps;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,7 +9,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.tarek360.instacapture.exception.MapSnapshotFailedException;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -26,6 +26,8 @@ public final class GoogleMapBitmapObservable {
     mapView.getLocationOnScreen(screenPosition);
 
     return Observable.create(new Observable.OnSubscribe<GoogleMapBitmap>() {
+      private boolean isSnapshotReady = false;
+
       @Override public void call(final Subscriber<? super GoogleMapBitmap> subscriber) {
 
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -33,14 +35,22 @@ public final class GoogleMapBitmapObservable {
 
             gMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
               @Override public void onSnapshotReady(@Nullable final Bitmap bitmap) {
-                if (bitmap != null) {
-                  subscriber.onNext(new GoogleMapBitmap(screenPosition, bitmap));
-                  subscriber.onCompleted();
-                } else {
-                  subscriber.onError(new MapSnapshotFailedException());
-                }
+                isSnapshotReady = true;
+
+                subscriber.onNext(new GoogleMapBitmap(screenPosition, bitmap));
+                subscriber.onCompleted();
               }
             });
+
+            new Handler().postDelayed(new Runnable() {
+              @Override public void run() {
+
+                if (!isSnapshotReady) {
+                  subscriber.onNext(new GoogleMapBitmap(screenPosition, null));
+                  subscriber.onCompleted();
+                }
+              }
+            }, 300);
           }
         });
       }
@@ -56,6 +66,9 @@ public final class GoogleMapBitmapObservable {
     }
 
     return Observable.create(new Observable.OnSubscribe<GoogleMapBitmap>() {
+
+      private boolean isSnapshotReady = false;
+
       @Override public void call(final Subscriber<? super GoogleMapBitmap> subscriber) {
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -63,14 +76,22 @@ public final class GoogleMapBitmapObservable {
 
             gMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
               @Override public void onSnapshotReady(@Nullable final Bitmap bitmap) {
-                if (bitmap != null) {
-                  subscriber.onNext(new GoogleMapBitmap(screenPosition, bitmap));
-                  subscriber.onCompleted();
-                } else {
-                  subscriber.onError(new MapSnapshotFailedException());
-                }
+                isSnapshotReady = true;
+
+                subscriber.onNext(new GoogleMapBitmap(screenPosition, bitmap));
+                subscriber.onCompleted();
               }
             });
+
+            new Handler().postDelayed(new Runnable() {
+              @Override public void run() {
+
+                if (!isSnapshotReady) {
+                  subscriber.onNext(new GoogleMapBitmap(screenPosition, null));
+                  subscriber.onCompleted();
+                }
+              }
+            }, 300);
           }
         });
       }

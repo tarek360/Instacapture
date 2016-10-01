@@ -11,7 +11,7 @@ public final class GoogleMapBitmap {
   private final int[] position;
   private final Bitmap bitmap;
 
-  GoogleMapBitmap(@NonNull final int[] position, @NonNull final Bitmap bitmap) {
+  GoogleMapBitmap(@NonNull final int[] position, final Bitmap bitmap) {
     this.bitmap = bitmap;
     this.position = position;
   }

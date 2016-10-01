@@ -45,7 +45,11 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
           for (final GoogleMapBitmap googleMapBitmap : googleMapBitmaps) {
             final int[] position = googleMapBitmap.getPosition();
 
-            canvas.drawBitmap(googleMapBitmap.getBitmap(), position[0], position[1], MAP_PAINT);
+            if (googleMapBitmap.getBitmap() != null) {
+              canvas.drawBitmap(googleMapBitmap.getBitmap(), position[0], position[1], MAP_PAINT);
+            } else {
+              Logger.e("Google map which is not ready, couldn't be captured");
+            }
           }
           return baseLocatedBitmap;
         }
