@@ -5,7 +5,7 @@ Android library to capture screenshot from your app
 ### Fast Usage
 - Capture a screenshot by one line of code!
 ```java
-InstaCapture.getInstance(this).capture();
+InstaCapture.getInstance(activity).capture();
 ```
 
 ### Features
@@ -23,7 +23,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:0.44"
+	 compile "com.github.tarek360:instacapture:1.0.0"
 }
 ```
 
@@ -42,7 +42,7 @@ allprojects {
 
 - To capture a screenshot with ScreenCaptureListener.
 ```java
-   InstaCapture.getInstance(this).capture().setScreenCapturingListener(new ScreenCaptureListener() {
+   InstaCapture.getInstance(activity).capture().setScreenCapturingListener(new ScreenCaptureListener() {
 
       @Override public void onCaptureStarted() {
           //TODO..
@@ -58,7 +58,7 @@ allprojects {
 
 - To capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html) to avoid ugly callback chains.
 ```java
-InstaCapture.getInstance(this).captureRx().subscribe(new Subscriber<File>() {
+InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<File>() {
       @Override public void onCompleted() {
         //TODO..
       }
