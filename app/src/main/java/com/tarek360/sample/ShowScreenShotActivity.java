@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.io.File;
 public class ShowScreenShotActivity extends AppCompatActivity {
 
   private final static String KEY_FILE_PATH = "file";
-  @Bind(R.id.imageView) ImageView imageView;
+  @BindView(R.id.imageView) ImageView imageView;
 
   public static Intent buildIntent(Context context, String filePath) {
     Intent intent = new Intent(context, ShowScreenShotActivity.class);

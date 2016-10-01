@@ -30,15 +30,15 @@ public abstract class BaseSampleActivity extends AppCompatActivity
   }
 
   protected void showAlertDialog() {
-    AlertDialogFragment mAlertDialogFragment = new AlertDialogFragment();
-    mAlertDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
+    AlertDialogFragment.newInstance(R.string.dialog_title, R.string.dialog_message)
+        .show(getSupportFragmentManager(), "dialogFragment");
   }
 
   protected void captureScreenshot() {
     captureScreenshot(null);
   }
 
-  protected void captureScreenshot(@Nullable View[] views) {
+  protected void captureScreenshot(@Nullable View... views) {
     InstaCapture.getInstance(this)
         .capture(views)
         .setScreenCapturingListener(new SimpleScreenCapturingListener() {
@@ -52,11 +52,6 @@ public abstract class BaseSampleActivity extends AppCompatActivity
 
   @Override protected void onStop() {
     super.onStop();
-  }
-
-  @Override protected void onDestroy() {
-    super.onDestroy();
-    ButterKnife.unbind(this);
   }
 
   @Override public void OnPositiveButtonClick() {

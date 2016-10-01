@@ -7,22 +7,22 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IgnoreViewsSampleActivity extends BaseSampleActivity {
 
-  @Bind(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.toolbar) Toolbar toolbar;
 
-  @Bind(R.id.textViewCheckBox) CheckBox textViewCheckBox;
-  @Bind(R.id.buttonCheckBox) CheckBox buttonCheckBox;
-  @Bind(R.id.imageViewCheckBox) CheckBox imageViewCheckBox;
+  @BindView(R.id.textViewCheckBox) CheckBox textViewCheckBox;
+  @BindView(R.id.buttonCheckBox) CheckBox buttonCheckBox;
+  @BindView(R.id.imageViewCheckBox) CheckBox imageViewCheckBox;
 
-  @Bind(R.id.textView) TextView textView;
-  @Bind(R.id.button) Button button;
-  @Bind(R.id.imageView) ImageView imageView;
+  @BindView(R.id.textView) TextView textView;
+  @BindView(R.id.button) Button button;
+  @BindView(R.id.imageView) ImageView imageView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,9 +33,12 @@ public class IgnoreViewsSampleActivity extends BaseSampleActivity {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }
 
-  @OnClick(R.id.fab) public void onClickFAB() {
+  @OnClick(R.id.fab) public void onClickFAB(View view) {
 
     List<View> views = new ArrayList<>();
+
+    views.add(view);
+
     if (!textViewCheckBox.isChecked()) {
       views.add(textView);
     }

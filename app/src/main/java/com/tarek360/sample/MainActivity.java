@@ -38,8 +38,4 @@ public class MainActivity extends AppCompatActivity {
     startActivity(new Intent(this, CustomViewSampleActivity.class));
   }
 
-  @Override protected void onDestroy() {
-    super.onDestroy();
-    ButterKnife.unbind(this);
-  }
 }
