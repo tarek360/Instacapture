@@ -2,11 +2,6 @@
 
 Android library to capture screenshot from your app
 
-### Fast Usage
-- Capture a screenshot by one line of code!
-```java
-InstaCapture.getInstance(activity).capture();
-```
 
 ### Features
 - Capture all the contents of the screen, includes:
@@ -23,7 +18,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:1.0.1"
+	 compile "com.github.tarek360:instacapture:1.2.0"
 }
 ```
 
@@ -38,7 +33,7 @@ allprojects {
 ```
 
 
-### Usage in details
+### How to use InstaCapture ?
 
 - To capture a screenshot with ScreenCaptureListener.
 ```java
@@ -50,15 +45,17 @@ allprojects {
       @Override public void onCaptureFailed(Throwable e) {
           //TODO..
       }
-      @Override public void onCaptureComplete(File file) {
+      @Override public void onCaptureComplete(Bitmap bitmap) {
           //TODO..
       }
     });
 ```
 
+## OR
+
 - To capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html) to avoid ugly callback chains.
 ```java
-InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<File>() {
+InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<Bitmap>() {
       @Override public void onCompleted() {
         //TODO..
       }
@@ -67,7 +64,7 @@ InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<File>() 
         //TODO..
       }
 
-      @Override public void onNext(File file) {
+      @Override public void onNext(Bitmap bitmap) {
         //TODO..
       }
     });
@@ -79,24 +76,11 @@ InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<File>() 
 ```
 
 
-- By default screenshots are save to the filesystem directory on the internal storage, but you can captuer screenshot into your file.
-```java
-.capture(file); or .captureRx(file);
-```
-
-
-- To captuer screenshot into your file and ignore view(s) from it.
-```java
-.capture(file, ignoredView); or .captureRx(file, ignoredView);
-```
-
-
 - To enable logging.
 ```java
 InstaCaptureConfiguration config = new InstaCaptureConfiguration.Builder().logging(true).build();
 InstaCapture.setConfiguration(config);
 ```
-
 
 
 ## License
