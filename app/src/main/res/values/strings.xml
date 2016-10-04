@@ -25,6 +25,7 @@
   <string name="sample_map_dialog">Google Map and Dialog</string>
   <string name="sample_ignore_views">Ignore Views</string>
   <string name="sample_custom_view">Custom View</string>
+  <string name="sample_texture_view">TextureView Sample</string>
 
 
   <string name="dialog_title">Dialog</string>
