@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.view.View;
 import android.view.WindowManager;
 import com.tarek360.instacapture.exception.ScreenCapturingFailedException;
+import com.tarek360.instacapture.utility.Logger;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public final class NonMapScreenshotTaker {
     }
 
     final List<RootViewInfo> viewRoots = FieldHelper.getRootViews(activity);
+    Logger.d("viewRoots count: " + viewRoots.size());
     View main = activity.getWindow().getDecorView();
 
     final Bitmap bitmap;

@@ -1,6 +1,7 @@
 package com.tarek360.instacapture;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,7 +10,6 @@ import com.tarek360.instacapture.listener.ScreenCaptureListener;
 import com.tarek360.instacapture.screenshot.ScreenshotProvider;
 import com.tarek360.instacapture.screenshot.ScreenshotProviderImpl;
 import com.tarek360.instacapture.utility.Logger;
-import java.io.File;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -18,6 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * Created by tarek on 5/17/16.
  */
 public final class InstaCapture {
+  public static long startTime;
 
   private static final String MESSAGE_IS_ACTIVITY_RUNNING = "Is your activity running?";
   private static final String MESSAGE_BUSY = "InstaCapture is busy, please wait!";
@@ -82,17 +83,7 @@ public final class InstaCapture {
    * Capture the current screen.
    */
   public Listener capture() {
-    capture(null, null);
-    return getListener();
-  }
-
-  /**
-   * Capture the current screen.
-   *
-   * @param file to save screenshot .
-   */
-  public Listener capture(File file) {
-    capture(file, null);
+    capture(null);
     return getListener();
   }
 
@@ -102,19 +93,8 @@ public final class InstaCapture {
    * @param ignoredViews from screenshot .
    */
   public Listener capture(View... ignoredViews) {
-    capture(null, ignoredViews);
-    return getListener();
-  }
 
-  /**
-   * Capture the current screen.
-   *
-   * @param file to save screenshot .
-   * @param ignoredViews from screenshot .
-   */
-  public Listener capture(File file, View... ignoredViews) {
-
-    captureRx(file, ignoredViews).subscribe(new Subscriber<File>() {
+    captureRx(ignoredViews).subscribe(new Subscriber<Bitmap>() {
       @Override public void onCompleted() {
       }
 
@@ -127,7 +107,7 @@ public final class InstaCapture {
         }
       }
 
-      @Override public void onNext(final File file) {
+      @Override public void onNext(final Bitmap file) {
         if (mScreenCapturingListener != null) {
           mScreenCapturingListener.onCaptureComplete(file);
         }
@@ -141,39 +121,19 @@ public final class InstaCapture {
    *
    * @return a Observable<File>
    */
-  public Observable<File> captureRx() {
-    return captureRx(null, null);
-  }
-
-  /**
-   * Capture the current screen.
-   *
-   * @param file to save screenshot.
-   * @return a Observable<File>
-   */
-  public Observable<File> captureRx(@Nullable File file) {
-    return captureRx(file, null);
+  public Observable<Bitmap> captureRx() {
+    return captureRx(null);
   }
 
   /**
    * Capture the current screen.
    *
    * @param ignoredViews from screenshot.
-   * @return a Observable<File>
+   * @return a Observable<Bitmap>
    */
-  public Observable<File> captureRx(@Nullable View... ignoredViews) {
-    return captureRx(null, ignoredViews);
-  }
+  public Observable<Bitmap> captureRx(@Nullable View... ignoredViews) {
 
-  /**
-   * Capture the current screen.
-   *
-   * @param file to save screenshot.
-   * @param ignoredViews from screenshot.
-   * @return a Observable<File>
-   */
-  public Observable<File> captureRx(@Nullable File file, @Nullable View... ignoredViews) {
-
+    InstaCapture.startTime = System.currentTimeMillis();
     final Activity activity = activityReferenceManager.getValidatedActivity();
     if (activity == null) {
       return Observable.error(new ActivityNotRunningException(MESSAGE_IS_ACTIVITY_RUNNING));
@@ -183,7 +143,7 @@ public final class InstaCapture {
       mScreenCapturingListener.onCaptureStarted();
     }
 
-    return screenshotProvider.getScreenshotFile(activity, file, ignoredViews)
+    return screenshotProvider.getScreenshotBitmap(activity, ignoredViews)
         .observeOn(AndroidSchedulers.mainThread());
   }
 

@@ -1,5 +1,6 @@
 package com.tarek360.sample;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -10,7 +11,10 @@ import com.tarek360.instacapture.InstaCapture;
 import com.tarek360.instacapture.InstaCaptureConfiguration;
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener;
 import com.tarek360.sample.dialog.AlertDialogFragment;
+import com.tarek360.sample.utility.Utility;
 import java.io.File;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public abstract class BaseSampleActivity extends AppCompatActivity
     implements AlertDialogFragment.OnAlertDialogListener {
@@ -43,9 +47,21 @@ public abstract class BaseSampleActivity extends AppCompatActivity
         .capture(views)
         .setScreenCapturingListener(new SimpleScreenCapturingListener() {
 
-          @Override public void onCaptureComplete(File file) {
-            startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
-                file.getAbsolutePath()));
+          @Override public void onCaptureStarted() {
+            super.onCaptureStarted();
+          }
+
+          @Override public void onCaptureComplete(Bitmap bitmap) {
+
+            Utility.getScreenshotFileObservable(BaseSampleActivity.this, bitmap)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<File>() {
+                  @Override public void call(File file) {
+
+                    startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
+                        file.getAbsolutePath()));
+                  }
+                });
           }
         });
   }

@@ -17,7 +17,6 @@ import com.tarek360.instacapture.screenshot.maps.GoogleMapBitmap;
 import com.tarek360.instacapture.screenshot.maps.GoogleMapBitmapObservable;
 import com.tarek360.instacapture.screenshot.nonMaps.NonMapViewsBitmapObservable;
 import com.tarek360.instacapture.utility.Logger;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -63,15 +62,13 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
     }
   }
 
-  @Override
-  public Observable<File> getScreenshotFile(@NonNull final Activity activity, final File file,
+  @Override public Observable<Bitmap> getScreenshotBitmap(@NonNull final Activity activity,
       final View[] removedViews) {
 
     Observable<Bitmap> screenshotBitmapObservable =
         getScreenshotBitmapObservable(activity, removedViews);
 
-    return ScreenshotFileObservable.get(screenshotBitmapObservable,
-        activity.getApplicationContext(), file);
+    return screenshotBitmapObservable;
   }
 
   private Observable<Bitmap> getScreenshotBitmapObservable(@NonNull final Activity activity,

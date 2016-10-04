@@ -1,9 +1,9 @@
 package com.tarek360.instacapture.screenshot;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.View;
-import java.io.File;
 import rx.Observable;
 
 /**
@@ -11,6 +11,5 @@ import rx.Observable;
  */
 public interface ScreenshotProvider {
 
-  Observable<File> getScreenshotFile(@NonNull final Activity activity, final File file,
-      View[] removedViews);
+  Observable<Bitmap> getScreenshotBitmap(@NonNull final Activity activity, View[] removedViews);
 }

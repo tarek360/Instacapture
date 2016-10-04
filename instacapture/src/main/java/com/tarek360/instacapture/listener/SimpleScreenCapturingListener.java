@@ -1,6 +1,6 @@
 package com.tarek360.instacapture.listener;
 
-import java.io.File;
+import android.graphics.Bitmap;
 
 /**
  * Created by tarek on 5/17/16.
@@ -32,9 +32,9 @@ public class SimpleScreenCapturingListener implements ScreenCaptureListener {
   /**
    * Is called when screen  is captured successfully.
    *
-   * @param file Captured screen file
+   * @param bitmap Captured screen bitmap
    */
-  @Override public void onCaptureComplete(File file) {
+  @Override public void onCaptureComplete(Bitmap bitmap) {
     // Empty implementation
   }
 }

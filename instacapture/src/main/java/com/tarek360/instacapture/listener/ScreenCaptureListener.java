@@ -1,6 +1,6 @@
 package com.tarek360.instacapture.listener;
 
-import java.io.File;
+import android.graphics.Bitmap;
 
 /**
  * Created by tarek on 5/17/16.
@@ -28,7 +28,7 @@ public interface ScreenCaptureListener {
   /**
    * Is called when image is loaded successfully (and displayed in View if one was specified)
    *
-   * @param file Captured screen file
+   * @param bitmap Captured screen bitmap
    */
-  void onCaptureComplete(File file);
+  void onCaptureComplete(Bitmap bitmap);
 }
