@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
-    if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
       sampleTextureView.setVisibility(View.GONE);
     }
   }
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @OnClick(R.id.sample_dialog) public void sampleDialog() {
-    startActivity(new Intent(this, DialogSampleActivity.class));
+    startActivity(new Intent(this, DialogAndMenuSampleActivity.class));
   }
 
   @OnClick(R.id.sample_map_dialog) public void sampleMapDialog() {
@@ -50,5 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
   @OnClick(R.id.sample_texture_view) public void sampleTextureView() {
     startActivity(new Intent(this, TextureViewSampleActivity.class));
+  }
+
+  @OnClick(R.id.sample_surface_view) public void sampleSurfaceView() {
+    startActivity(new Intent(this, SurfaceViewSampleActivity.class));
+  }
+
+  @OnClick(R.id.sample_gl_surface_view) public void sampleGLSurfaceView() {
+    startActivity(new Intent(this, GLSurfaceViewSampleActivity.class));
   }
 }

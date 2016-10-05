@@ -2,8 +2,15 @@
     package="com.tarek360.sample">
 
   <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
   <application
+      android:name=".App"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
@@ -38,8 +45,8 @@
           android:value="com.tarek360.sample.MainActivity"/>
     </activity>
     <activity
-        android:name=".DialogSampleActivity"
-        android:label="@string/sample_dialog"
+        android:name=".DialogAndMenuSampleActivity"
+        android:label="@string/sample_dialog_and_menu"
         android:parentActivityName=".MainActivity">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
@@ -79,6 +86,26 @@
         android:label="@string/sample_texture_view"
         android:parentActivityName=".MainActivity"
         android:theme="@style/AppTheme">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+
+    <activity
+        android:name=".SurfaceViewSampleActivity"
+        android:label="@string/sample_surface_view"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
+
+    <activity
+        android:name=".GLSurfaceViewSampleActivity"
+        android:label="@string/sample_gl_surface_view"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value="com.tarek360.sample.MainActivity"/>

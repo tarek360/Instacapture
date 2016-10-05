@@ -21,11 +21,13 @@
 
   <string name="sample_google_map_view">Google Map View</string>
   <string name="sample_google_map_fragment">Google Map Fragment</string>
-  <string name="sample_dialog">Dialog</string>
+  <string name="sample_dialog_and_menu">Dialog and Options Menu</string>
   <string name="sample_map_dialog">Google Map and Dialog</string>
   <string name="sample_ignore_views">Ignore Views</string>
   <string name="sample_custom_view">Custom View</string>
   <string name="sample_texture_view">TextureView Sample</string>
+  <string name="sample_surface_view">SurfaceView Sample</string>
+  <string name="sample_gl_surface_view">GLSurfaceView Sample</string>
 
 
   <string name="dialog_title">Dialog</string>

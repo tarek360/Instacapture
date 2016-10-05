@@ -10,7 +10,7 @@ import butterknife.ButterKnife;
 import com.tarek360.instacapture.InstaCapture;
 import com.tarek360.instacapture.InstaCaptureConfiguration;
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener;
-import com.tarek360.sample.dialog.AlertDialogFragment;
+import com.tarek360.sample.uncapturableViews.AlertDialogFragment;
 import com.tarek360.sample.utility.Utility;
 import java.io.File;
 import rx.android.schedulers.AndroidSchedulers;

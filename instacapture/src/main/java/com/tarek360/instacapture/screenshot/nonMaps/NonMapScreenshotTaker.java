@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -15,8 +17,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import com.tarek360.instacapture.exception.ScreenCapturingFailedException;
 import com.tarek360.instacapture.utility.Logger;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by tarek on 5/17/16.
@@ -134,14 +141,82 @@ public final class NonMapScreenshotTaker {
 
       Log.d("zxzx", "child: " + child);
 
-      if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH
+      if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH
           && child instanceof TextureView) {
         drawTextureView((TextureView) child, canvas);
+      }
+
+      if (child instanceof GLSurfaceView) {
+        drawGLSurfaceView((GLSurfaceView) child, canvas);
       }
 
       result.addAll(viewArrayList);
     }
     return result;
+  }
+
+  private static void drawGLSurfaceView(GLSurfaceView surfaceView, Canvas canvas) {
+    Log.d("zxzx", "Drawing SurfaceView");
+
+    if (surfaceView.getWindowToken() != null) {
+      int[] location = new int[2];
+
+      surfaceView.getLocationOnScreen(location);
+      final int width = surfaceView.getWidth();
+      final int height = surfaceView.getHeight();
+
+      final int x = 0;
+      final int y = 0;
+      int[] b = new int[width * (y + height)];
+
+      final IntBuffer ib = IntBuffer.wrap(b);
+      ib.position(0);
+
+      //To wait for the async call to finish before going forward
+      final CountDownLatch countDownLatch = new CountDownLatch(1);
+      surfaceView.queueEvent(new Runnable() {
+        @Override public void run() {
+          EGL10 egl = (EGL10) EGLContext.getEGL();
+          egl.eglWaitGL();
+          GL10 gl = (GL10) egl.eglGetCurrentContext().getGL();
+
+          gl.glFinish();
+
+          try {
+            Thread.sleep(200);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+
+          gl.glReadPixels(x, 0, width, y + height, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, ib);
+          countDownLatch.countDown();
+        }
+      });
+
+      try {
+        countDownLatch.await();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      int[] bt = new int[width * height];
+      int i = 0;
+      for (int k = 0; i < height; k++) {
+        for (int j = 0; j < width; j++) {
+          int pix = b[(i * width + j)];
+          int pb = pix >> 16 & 0xFF;
+          int pr = pix << 16 & 0xFF0000;
+          int pix1 = pix & 0xFF00FF00 | pr | pb;
+          bt[((height - k - 1) * width + j)] = pix1;
+        }
+        i++;
+      }
+
+      Bitmap sb = Bitmap.createBitmap(bt, width, height, Bitmap.Config.ARGB_8888);
+      Paint paint = new Paint();
+      paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
+      canvas.drawBitmap(sb, location[0], location[1], paint);
+      sb.recycle();
+    }
   }
 
   @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -150,15 +225,15 @@ public final class NonMapScreenshotTaker {
 
     int[] textureViewLocation = new int[2];
     textureView.getLocationOnScreen(textureViewLocation);
-    textureView.setDrawingCacheEnabled(true);
+    //textureView.setDrawingCacheEnabled(true);
     Bitmap textureViewBitmap = textureView.getBitmap();
     if (textureViewBitmap != null) {
       Paint paint = new Paint();
       paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
       canvas.drawBitmap(textureViewBitmap, textureViewLocation[0], textureViewLocation[1], paint);
       textureViewBitmap.recycle();
-      textureView.destroyDrawingCache();
-      textureView.setDrawingCacheEnabled(false);
+      //textureView.destroyDrawingCache();
+      //textureView.setDrawingCacheEnabled(false);
     }
   }
 }
