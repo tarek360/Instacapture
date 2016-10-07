@@ -101,16 +101,6 @@
           android:value="com.tarek360.sample.MainActivity"/>
     </activity>
 
-    <activity
-        android:name=".GLSurfaceViewSampleActivity"
-        android:label="@string/sample_gl_surface_view"
-        android:parentActivityName=".MainActivity"
-        android:theme="@style/AppTheme.NoActionBar">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.tarek360.sample.MainActivity"/>
-    </activity>
-
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyACOgkkILLrGAmIpv_EPsv-6q2ZJ4cVL08"/>
