@@ -6,7 +6,7 @@ Android library to capture screenshot from your app
 ### Features
 - Capture all the contents of the screen, includes:
    - Google Maps ([MapView](https://developers.google.com/android/reference/com/google/android/gms/maps/MapView), [SupportMapFragment](https://developers.google.com/android/reference/com/google/android/gms/maps/SupportMapFragment)) 
-   - Dialogs
+   - Dialogs, context menus, toasts
    - TextureView
    - GLSurfaceView
 
