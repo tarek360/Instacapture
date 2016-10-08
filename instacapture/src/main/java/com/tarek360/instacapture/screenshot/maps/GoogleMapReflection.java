@@ -70,11 +70,9 @@ public class GoogleMapReflection {
         new InterfaceReflection.MethodInvocationCallback() {
           @Override public void invoke(Method method, Object[] args) {
             if (method.getName().equals("onSnapshotReady")) {
-              System.out.println("onSnapshotReady");
 
               if (args != null) {
 
-                System.out.println("onSnapshotReady: " + args[0]);
                 isSnapshotReady = true;
 
                 subscriber.onNext(new GoogleMapBitmap(screenPosition, (Bitmap) args[0]));
@@ -92,8 +90,6 @@ public class GoogleMapReflection {
           @Override public void invoke(Method method, Object[] args) {
             if (method.getName().equals("onMapReady")) {
               if (args != null) {
-
-                System.out.println("onMapReady: " + args[0]);
 
                 Object googleMap = args[0];
                 Class googleMapClass = googleMap.getClass();
