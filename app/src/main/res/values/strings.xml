@@ -26,7 +26,6 @@
   <string name="sample_ignore_views">Ignore Views</string>
   <string name="sample_custom_view">Custom View</string>
   <string name="sample_texture_view">TextureView Sample</string>
-  <string name="sample_surface_view">SurfaceView Sample</string>
   <string name="sample_gl_surface_view">GLSurfaceView Sample</string>
 
 

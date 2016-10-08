@@ -52,10 +52,6 @@ public class MainActivity extends AppCompatActivity {
     startActivity(new Intent(this, TextureViewSampleActivity.class));
   }
 
-  @OnClick(R.id.sample_surface_view) public void sampleSurfaceView() {
-    startActivity(new Intent(this, SurfaceViewSampleActivity.class));
-  }
-
   @OnClick(R.id.sample_gl_surface_view) public void sampleGLSurfaceView() {
     startActivity(new Intent(this, GLSurfaceViewSampleActivity.class));
   }

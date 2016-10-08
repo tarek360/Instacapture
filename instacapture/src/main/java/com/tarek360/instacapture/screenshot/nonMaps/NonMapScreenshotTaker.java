@@ -65,20 +65,14 @@ public final class NonMapScreenshotTaker {
 
   private static void drawRootsToBitmap(List<RootViewInfo> viewRoots, Bitmap bitmap,
       View[] ignoredViews) {
-    count = 0;
     for (RootViewInfo rootData : viewRoots) {
       drawRootToBitmap(rootData, bitmap, ignoredViews);
     }
   }
 
-  private static int count = 0;
-
   private static void drawRootToBitmap(final RootViewInfo rootViewInfo, Bitmap bitmap,
       View[] ignoredViews) {
-    count++;
-    if (count == 1) {
-      return;
-    }
+
     // support dim screen
     if ((rootViewInfo.getLayoutParams().flags & WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         == WindowManager.LayoutParams.FLAG_DIM_BEHIND) {

@@ -11,10 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.tarek360.instacapture.screenshot.maps.GoogleMapBitmap;
 import com.tarek360.instacapture.screenshot.maps.GoogleMapBitmapObservable;
+import com.tarek360.instacapture.screenshot.maps.GoogleMapReflection;
 import com.tarek360.instacapture.screenshot.nonMaps.NonMapViewsBitmapObservable;
 import com.tarek360.instacapture.utility.Logger;
 import java.util.ArrayList;
@@ -78,8 +77,8 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
         NonMapViewsBitmapObservable.get(activity, removedViews);
 
     final View rootView = activity.getWindow().getDecorView().getRootView();
-    final List<MapView> mapViews = getMapViews(rootView);
-    final List<SupportMapFragment> mapFragments = getMapFragments(activity);
+    final List<View> mapViews = getMapViews(rootView);
+    final List<Fragment> mapFragments = getMapFragments(activity);
 
     if (mapViews.isEmpty() && mapFragments.isEmpty()) {
 
@@ -89,14 +88,14 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
       if (!mapFragments.isEmpty()) {
 
         final Observable<List<GoogleMapBitmap>> mapViewBitmapsObservable =
-            getMapFragmentBitmapsObservable(mapFragments);
+            getMapBitmapsObservable(mapFragments);
 
         return Observable.zip(nonMapViewsBitmapObservable, mapViewBitmapsObservable,
             BITMAP_COMBINING_FUNCTION);
       } else {
 
         final Observable<List<GoogleMapBitmap>> mapViewBitmapsObservable =
-            getMapViewBitmapsObservable(mapViews);
+            getMapBitmapsObservable(mapViews);
 
         return Observable.zip(nonMapViewsBitmapObservable, mapViewBitmapsObservable,
             BITMAP_COMBINING_FUNCTION);
@@ -104,16 +103,16 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
     }
   }
 
-  private List<SupportMapFragment> getMapFragments(@NonNull final Activity activity) {
-    final List<SupportMapFragment> mapFragments = new ArrayList<>();
+  private List<Fragment> getMapFragments(@NonNull final Activity activity) {
+    final List<Fragment> mapFragments = new ArrayList<>();
 
     if (activity instanceof FragmentActivity) {
       List<Fragment> fragments =
           ((FragmentActivity) activity).getSupportFragmentManager().getFragments();
       if (fragments != null) {
         for (Fragment fragment : fragments) {
-          if (fragment instanceof SupportMapFragment) {
-            mapFragments.add((SupportMapFragment) fragment);
+          if (GoogleMapReflection.CLASS_NAME_MAP_FRAGMENT.equals(fragment.getClass().getName())) {
+            mapFragments.add(fragment);
           }
         }
       }
@@ -121,8 +120,8 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
     return mapFragments;
   }
 
-  private List<MapView> getMapViews(@NonNull final View rootView) {
-    final List<MapView> mapViews = new ArrayList<>();
+  private List<View> getMapViews(@NonNull final View rootView) {
+    final List<View> mapViews = new ArrayList<>();
 
     final Queue<View> views = new LinkedList<>();
     views.add(rootView);
@@ -130,8 +129,9 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
     while (!views.isEmpty()) {
       final View view = views.remove();
 
-      if (view instanceof MapView && view.getVisibility() == View.VISIBLE) {
-        mapViews.add((MapView) view);
+      if (GoogleMapReflection.CLASS_NAME_MAP_VIEW.equals(view.getClass().getName())
+          && view.getVisibility() == View.VISIBLE) {
+        mapViews.add(view);
       } else if (view instanceof ViewGroup) {
         final ViewGroup viewGroup = (ViewGroup) view;
 
@@ -144,30 +144,15 @@ public class ScreenshotProviderImpl implements ScreenshotProvider {
     return mapViews;
   }
 
-  private Observable<List<GoogleMapBitmap>> getMapViewBitmapsObservable(
-      @NonNull final List<MapView> mapViews) {
+  private <T> Observable<List<GoogleMapBitmap>> getMapBitmapsObservable(
+      @NonNull final List<T> maps) {
 
-    return Observable.from(mapViews).concatMap(new Func1<MapView, Observable<GoogleMapBitmap>>() {
+    return Observable.from(maps).concatMap(new Func1<T, Observable<GoogleMapBitmap>>() {
 
-      @Override public Observable<GoogleMapBitmap> call(@NonNull final MapView mapView) {
+      @Override public Observable<GoogleMapBitmap> call(@NonNull final T map) {
 
-        return GoogleMapBitmapObservable.getMapViewObservable(mapView);
+        return GoogleMapBitmapObservable.getMapObservable(map);
       }
     }).toList();
-  }
-
-  private Observable<List<GoogleMapBitmap>> getMapFragmentBitmapsObservable(
-      @NonNull final List<SupportMapFragment> supportMapFragments) {
-
-    return Observable.from(supportMapFragments)
-        .concatMap(new Func1<SupportMapFragment, Observable<GoogleMapBitmap>>() {
-
-          @Override
-          public Observable<GoogleMapBitmap> call(@NonNull final SupportMapFragment mapFragment) {
-
-            return GoogleMapBitmapObservable.getMapFragmentObservable(mapFragment);
-          }
-        })
-        .toList();
   }
 }
