@@ -7,7 +7,9 @@ Android library to capture screenshot from your app
 - Capture all the contents of the screen, includes:
    - Google Maps ([MapView](https://developers.google.com/android/reference/com/google/android/gms/maps/MapView), [SupportMapFragment](https://developers.google.com/android/reference/com/google/android/gms/maps/SupportMapFragment)) 
    - Dialogs
-- No need to set your dialog or your google maps to InstaCapture, just call capture( ) method.
+   - TextureView
+   - GLSurfaceView
+
 - Set a specific view(s) to prevent it from capturing.
 - No permissions are required.
 
