@@ -1,4 +1,4 @@
-package com.tarek360.instacapture.screenshot.nonMaps;
+package com.tarek360.instacapture.screenshot;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -10,7 +10,6 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +27,9 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * Created by tarek on 5/17/16.
  */
-public final class NonMapScreenshotTaker {
+public final class ScreenshotTaker {
 
-  private NonMapScreenshotTaker() {
+  private ScreenshotTaker() {
   }
 
   /**
@@ -63,8 +62,10 @@ public final class NonMapScreenshotTaker {
     return bitmap;
   }
 
+  //static int count = 0 ;
   private static void drawRootsToBitmap(List<RootViewInfo> viewRoots, Bitmap bitmap,
       View[] ignoredViews) {
+    //count = 0;
     for (RootViewInfo rootData : viewRoots) {
       drawRootToBitmap(rootData, bitmap, ignoredViews);
     }
@@ -83,7 +84,7 @@ public final class NonMapScreenshotTaker {
     }
 
     final Canvas canvas = new Canvas(bitmap);
-    canvas.translate(rootViewInfo.getRect().left, rootViewInfo.getRect().top);
+    canvas.translate(rootViewInfo.getLeft(), rootViewInfo.getTop());
 
     int[] ignoredViewsVisibility = null;
     if (ignoredViews != null) {
@@ -99,10 +100,8 @@ public final class NonMapScreenshotTaker {
       }
     }
 
-    Log.d("zxzx", "rootViewInfo.getView(): " + rootViewInfo.getView());
-
-    //Draw undrawable views
     rootViewInfo.getView().draw(canvas);
+    //Draw undrawable views
     drawUnDrawableViews(rootViewInfo.getView(), canvas);
 
     if (ignoredViews != null) {
@@ -133,8 +132,6 @@ public final class NonMapScreenshotTaker {
       viewArrayList.add(v);
       viewArrayList.addAll(drawUnDrawableViews(child, canvas));
 
-      Log.d("zxzx", "child: " + child);
-
       if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH
           && child instanceof TextureView) {
         drawTextureView((TextureView) child, canvas);
@@ -150,7 +147,7 @@ public final class NonMapScreenshotTaker {
   }
 
   private static void drawGLSurfaceView(GLSurfaceView surfaceView, Canvas canvas) {
-    Log.d("zxzx", "Drawing SurfaceView");
+    Logger.d("Drawing GLSurfaceView");
 
     if (surfaceView.getWindowToken() != null) {
       int[] location = new int[2];
@@ -219,15 +216,12 @@ public final class NonMapScreenshotTaker {
 
     int[] textureViewLocation = new int[2];
     textureView.getLocationOnScreen(textureViewLocation);
-    //textureView.setDrawingCacheEnabled(true);
     Bitmap textureViewBitmap = textureView.getBitmap();
     if (textureViewBitmap != null) {
       Paint paint = new Paint();
       paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
       canvas.drawBitmap(textureViewBitmap, textureViewLocation[0], textureViewLocation[1], paint);
       textureViewBitmap.recycle();
-      //textureView.destroyDrawingCache();
-      //textureView.setDrawingCacheEnabled(false);
     }
   }
 }

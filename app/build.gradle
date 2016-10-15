@@ -29,6 +29,6 @@ dependencies {
   compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
   apt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
   compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
-  compile('com.google.android.gms:play-services-maps:9.4.0')
+  compile('com.google.android.gms:play-services-maps:8.4.0')
   compile project(':instacapture')
 }

@@ -1,6 +1,5 @@
-package com.tarek360.instacapture.screenshot.nonMaps;
+package com.tarek360.instacapture.screenshot;
 
-import android.graphics.Rect;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -10,12 +9,17 @@ import android.view.WindowManager;
 public class RootViewInfo {
 
   private final View view;
-  private final Rect rect;
   private final WindowManager.LayoutParams layoutParams;
+  private final int top;
+  private final int left;
 
-  public RootViewInfo(View view, Rect rect, WindowManager.LayoutParams layoutParams) {
+  public RootViewInfo(View view, WindowManager.LayoutParams layoutParams) {
     this.view = view;
-    this.rect = rect;
+    int[] onScreenPosition = new int[2];
+    view.getLocationOnScreen(onScreenPosition);
+    left = onScreenPosition[0];
+    top = onScreenPosition[1];
+
     this.layoutParams = layoutParams;
   }
 
@@ -23,8 +27,12 @@ public class RootViewInfo {
     return view;
   }
 
-  public Rect getRect() {
-    return rect;
+  public int getTop() {
+    return top;
+  }
+
+  public int getLeft() {
+    return left;
   }
 
   public WindowManager.LayoutParams getLayoutParams() {

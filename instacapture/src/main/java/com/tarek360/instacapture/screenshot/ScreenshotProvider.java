@@ -9,7 +9,11 @@ import rx.Observable;
 /**
  * Created by tarek on 5/17/16.
  */
-public interface ScreenshotProvider {
+public class ScreenshotProvider {
 
-  Observable<Bitmap> getScreenshotBitmap(@NonNull final Activity activity, View[] removedViews);
+  public Observable<Bitmap> getScreenshotBitmap(@NonNull final Activity activity,
+      final View[] removedViews) {
+
+    return ViewsBitmapObservable.get(activity, removedViews);
+  }
 }

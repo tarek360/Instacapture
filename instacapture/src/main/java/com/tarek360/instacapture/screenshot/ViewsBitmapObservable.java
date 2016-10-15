@@ -1,4 +1,4 @@
-package com.tarek360.instacapture.screenshot.nonMaps;
+package com.tarek360.instacapture.screenshot;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -12,9 +12,9 @@ import rx.functions.Func0;
 /**
  * Created by tarek on 5/17/16.
  */
-public final class NonMapViewsBitmapObservable {
+public final class ViewsBitmapObservable {
 
-  private NonMapViewsBitmapObservable() {
+  private ViewsBitmapObservable() {
 
   }
 
@@ -24,7 +24,7 @@ public final class NonMapViewsBitmapObservable {
     return Observable.defer(new Func0<Observable<Bitmap>>() {
       @Override public Observable<Bitmap> call() {
 
-        Bitmap screenBitmap = NonMapScreenshotTaker.getScreenshotBitmap(activity, removedViews);
+        Bitmap screenBitmap = ScreenshotTaker.getScreenshotBitmap(activity, removedViews);
         if (screenBitmap != null) {
           return Observable.just(screenBitmap);
         } else {

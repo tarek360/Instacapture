@@ -8,7 +8,6 @@ import android.view.View;
 import com.tarek360.instacapture.exception.ActivityNotRunningException;
 import com.tarek360.instacapture.listener.ScreenCaptureListener;
 import com.tarek360.instacapture.screenshot.ScreenshotProvider;
-import com.tarek360.instacapture.screenshot.ScreenshotProviderImpl;
 import com.tarek360.instacapture.utility.Logger;
 import rx.Observable;
 import rx.Subscriber;
@@ -158,7 +157,7 @@ public final class InstaCapture {
       throw new IllegalArgumentException(ERROR_INIT_WITH_DESTROYED_ACTIVITY);
     }
 
-    return new ScreenshotProviderImpl();
+    return new ScreenshotProvider();
   }
 
   private Listener getListener() {
