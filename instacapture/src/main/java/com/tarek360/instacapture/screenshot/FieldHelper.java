@@ -50,8 +50,9 @@ class FieldHelper {
 
     for (int i = 0; i < viewRoots.length; i++) {
       View view = (View) getFieldValue(FIELD_NAME_VIEW, viewRoots[i]);
-
-      rootViews.add(new RootViewInfo(view, params[i]));
+      if (view.getVisibility() == View.VISIBLE) {
+        rootViews.add(new RootViewInfo(view, params[i]));
+      }
     }
 
     return rootViews;
