@@ -40,8 +40,8 @@ dependencies {
   }
   compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
 
-  compile "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
-  compile "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
+  compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxandroidVersion"
+  compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjavaVersion"
 
 
   // Dependencies for local unit tests
