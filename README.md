@@ -55,23 +55,37 @@ allprojects {
 
 ## OR
 
-- To capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html) to avoid ugly callback chains.
+- To capture a screenshot with [RxJava 1](https://github.com/ReactiveX/RxJava)
+
 ```java
-InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<Bitmap>() {
-      @Override public void onCompleted() {
-        //TODO..
-      }
+ Subscription subscription = InstaCapture.getInstance(activity).captureRxV1().subscribe(new SingleSubscriber<Bitmap>() {
+        @Override public void onSuccess(Bitmap bitmap) {
+            //TODO..
+        }
 
-      @Override public void onError(Throwable e) {
-        //TODO..
-      }
+        @Override public void onError(Throwable error) {
+            //TODO..
+        }
+ });
 
-      @Override public void onNext(Bitmap bitmap) {
-        //TODO..
-      }
-    });
+//OnDestroy
+ subscription.unsubscribe();
 ```
     
+- To capture a screenshot with [RxJava 2](https://github.com/ReactiveX/RxJava)
+```java
+Disposable disposable = InstaCapture.getInstance(activity).captureRx().subscribeWith(new DisposableSingleObserver<Bitmap>() {
+        @Override public void onSuccess(Bitmap bitmap) {
+            //TODO..
+        }
+        @Override  public void onError(Throwable e) {
+            //TODO..
+        }
+});
+
+//OnDestroy
+disposable.dispose();
+```
 - To ignore view(s) from the screenshot.
 ```java
 .capture(ignoredView); or .captureRx(ignoredView);
