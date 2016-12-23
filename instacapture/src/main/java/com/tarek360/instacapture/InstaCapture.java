@@ -13,10 +13,15 @@ import com.tarek360.instacapture.utility.Logger;
 
 import org.reactivestreams.Subscriber;
 
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import rx.Observer;
+import rx.SingleSubscriber;
+import rx.Subscription;
 
 /**
  * Created by tarek on 5/17/16.
@@ -131,17 +136,26 @@ public final class InstaCapture {
     /**
      * Capture the current screen.
      *
-     * @return a Single<File>
+     * @return a Single<Bitmap> from RxJava 2.
      */
     public Single<Bitmap> captureRx() {
         return captureRx(null);
     }
 
     /**
+     * add support for RxJava version 1.
+     *
+     * @return a Single<Bitmap> from RxJava 1.
+     */
+    public rx.Single<Bitmap> captureRxV1() {
+        return RxJavaInterop.toV1Single(captureRx(null));
+    }
+
+    /**
      * Capture the current screen.
      *
      * @param ignoredViews from screenshot.
-     * @return a Single<Bitmap>
+     * @return a Single<Bitmap> from RxJava 2.
      */
     public Single<Bitmap> captureRx(@Nullable View... ignoredViews) {
 
@@ -158,6 +172,17 @@ public final class InstaCapture {
         return screenshotProvider.getScreenshotBitmap(activity, ignoredViews)
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    /**
+     * add support for RxJava 1.
+     *
+     * @param ignoredViews from screenshot.
+     * @return Single<Bitmap> from RxJava version 1.
+     */
+    public rx.Single<Bitmap> captureRxV1(@Nullable View... ignoredViews) {
+        return RxJavaInterop.toV1Single(captureRx(ignoredViews));
+    }
+    
 
     /**
      * @return a ScreenshotProvider

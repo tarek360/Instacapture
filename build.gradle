@@ -40,4 +40,5 @@ ext {
   rxandroidVersion = '2.0.1'
   rxjavaVersion = '2.0.3'
   junitVersion = '4.12'
+  rxjava2interopVersion = '0.8.1'
 }
