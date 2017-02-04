@@ -28,26 +28,11 @@
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#f00"
-    />
-
     <android.opengl.GLSurfaceView
         android:id="@+id/glSurfaceView"
-        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="40dp"
-        android:background="#ff0"
-        android:layout_gravity="center"
-    />
 
   </FrameLayout>
 

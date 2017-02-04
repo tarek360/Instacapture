@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.tarek360'
 
@@ -30,6 +31,9 @@ android {
   testOptions {
     unitTests.returnDefaultValues = true
   }
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
 }
 
 dependencies {
@@ -46,7 +50,10 @@ dependencies {
 
   // Dependencies for local unit tests
   testCompile "junit:junit:$rootProject.ext.junitVersion"
-
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+  mavenCentral()
 }
 //apply plugin: 'com.google.gms.google-services'
 

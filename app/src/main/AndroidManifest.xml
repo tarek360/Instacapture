@@ -76,16 +76,6 @@
     </activity>
 
     <activity
-        android:name=".TextureViewSampleActivity"
-        android:label="@string/sample_texture_view"
-        android:parentActivityName=".MainActivity"
-        android:theme="@style/AppTheme">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.tarek360.sample.MainActivity"/>
-    </activity>
-
-    <activity
         android:name=".GLSurfaceViewSampleActivity"
         android:label="@string/sample_gl_surface_view"
         android:parentActivityName=".MainActivity"
