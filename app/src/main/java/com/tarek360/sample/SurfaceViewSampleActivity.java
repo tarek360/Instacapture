@@ -3,6 +3,7 @@ package com.tarek360.sample;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -12,18 +13,21 @@ import butterknife.OnClick;
 
 public class SurfaceViewSampleActivity extends BaseSampleActivity {
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_surface_view_sample);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_surface_view_sample);
 
-    setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-  }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-  @OnClick(R.id.fab) public void onClickFAB(View view) {
-    captureScreenshot(view);
-  }
+    @OnClick(R.id.fab)
+    public void onClickFAB(View view) {
+        captureScreenshot(view);
+    }
 }

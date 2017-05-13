@@ -9,7 +9,7 @@ package com.tarek360.instacapture.exception;
  */
 public final class IllegalScreenSizeException extends Exception {
 
-  public IllegalScreenSizeException() {
-    super("Activity width or height are <= 0");
-  }
+    public IllegalScreenSizeException() {
+        super("Activity width or height are <= 0");
+    }
 }

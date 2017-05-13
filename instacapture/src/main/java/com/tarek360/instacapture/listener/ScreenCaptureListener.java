@@ -15,20 +15,20 @@ import android.graphics.Bitmap;
 
 public interface ScreenCaptureListener {
 
-  /**
-   * Is called when screen capturing task was started
-   */
-  void onCaptureStarted();
+    /**
+     * Is called when screen capturing task was started
+     */
+    void onCaptureStarted();
 
-  /**
-   * Is called when an error was occurred during screen capturing
-   */
-  void onCaptureFailed(Throwable e);
+    /**
+     * Is called when an error was occurred during screen capturing
+     */
+    void onCaptureFailed(Throwable e);
 
-  /**
-   * Is called when image is loaded successfully (and displayed in View if one was specified)
-   *
-   * @param bitmap Captured screen bitmap
-   */
-  void onCaptureComplete(Bitmap bitmap);
+    /**
+     * Is called when image is loaded successfully (and displayed in View if one was specified)
+     *
+     * @param bitmap Captured screen bitmap
+     */
+    void onCaptureComplete(Bitmap bitmap);
 }

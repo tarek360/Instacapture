@@ -1,59 +1,58 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.tarek360'
+group = 'com.github.tarek360'
 
 android {
 
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-  defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
 
-    versionCode 1
-    versionName "1"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        versionCode 1
+        versionName "1"
     }
-  }
-  // Always show the result of every unit test, even if it passes.
-  testOptions.unitTests.all {
-    testLogging {
-      events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-  }
+    // Always show the result of every unit test, even if it passes.
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
 
-  testOptions {
-    unitTests.returnDefaultValues = true
-  }
-  sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
-  }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
 
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile("com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion") {
-    ext.optional = true
-  }
-  compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile("com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion") {
+        ext.optional = true
+    }
+    compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
 
-  compile "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
-  compile "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
+    compile "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
+    compile "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
 
-
-  // Dependencies for local unit tests
-  testCompile "junit:junit:$rootProject.ext.junitVersion"
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // Dependencies for local unit tests
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 //apply plugin: 'com.google.gms.google-services'
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.View;
+
 import rx.Observable;
 
 /**
@@ -11,9 +12,9 @@ import rx.Observable;
  */
 public class ScreenshotProvider {
 
-  public Observable<Bitmap> getScreenshotBitmap(@NonNull final Activity activity,
-      final View[] removedViews) {
+    public Observable<Bitmap> getScreenshotBitmap(@NonNull final Activity activity,
+                                                  final View[] removedViews) {
 
-    return ViewsBitmapObservable.get(activity, removedViews);
-  }
+        return ViewsBitmapObservable.get(activity, removedViews);
+    }
 }

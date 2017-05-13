@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -11,34 +12,36 @@ import java.lang.ref.WeakReference;
  */
 public final class ActivityReferenceManager {
 
-  @Nullable private WeakReference<Activity> mActivity;
+    @Nullable
+    private WeakReference<Activity> mActivity;
 
-  public void setActivity(@NonNull final Activity activity) {
-    this.mActivity = new WeakReference<>(activity);
-  }
-
-  @Nullable public Activity getValidatedActivity() {
-    if (mActivity == null) {
-      return null;
+    public void setActivity(@NonNull final Activity activity) {
+        this.mActivity = new WeakReference<>(activity);
     }
 
-    final Activity activity = mActivity.get();
-    if (!isActivityValid(activity)) {
-      return null;
+    @Nullable
+    public Activity getValidatedActivity() {
+        if (mActivity == null) {
+            return null;
+        }
+
+        final Activity activity = mActivity.get();
+        if (!isActivityValid(activity)) {
+            return null;
+        }
+
+        return activity;
     }
 
-    return activity;
-  }
+    private boolean isActivityValid(@Nullable final Activity activity) {
+        if (activity == null) {
+            return false;
+        }
 
-  private boolean isActivityValid(@Nullable final Activity activity) {
-    if (activity == null) {
-      return false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return !activity.isFinishing() && !activity.isDestroyed();
+        } else {
+            return !activity.isFinishing();
+        }
     }
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      return !activity.isFinishing() && !activity.isDestroyed();
-    } else {
-      return !activity.isFinishing();
-    }
-  }
 }

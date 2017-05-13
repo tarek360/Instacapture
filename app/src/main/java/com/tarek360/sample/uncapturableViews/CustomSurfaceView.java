@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
 import com.tarek360.sample.R;
 
 /**
@@ -16,48 +17,50 @@ import com.tarek360.sample.R;
 
 public class CustomSurfaceView extends SurfaceView {
 
-  private Bitmap bmpIcon;
+    private Bitmap bmpIcon;
 
-  public CustomSurfaceView(Context context) {
-    super(context);
-    init();
-  }
+    public CustomSurfaceView(Context context) {
+        super(context);
+        init();
+    }
 
-  public CustomSurfaceView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    init();
-  }
+    public CustomSurfaceView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
 
-  public CustomSurfaceView(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
-    init();
-  }
+    public CustomSurfaceView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
 
-  private void init() {
-    bmpIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-    getHolder().addCallback(new SurfaceHolder.Callback() {
+    private void init() {
+        bmpIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        getHolder().addCallback(new SurfaceHolder.Callback() {
 
-      @Override public void surfaceCreated(SurfaceHolder holder) {
-        Canvas canvas = holder.lockCanvas(null);
-        drawSomething(canvas);
-        holder.unlockCanvasAndPost(canvas);
-      }
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                Canvas canvas = holder.lockCanvas(null);
+                drawSomething(canvas);
+                holder.unlockCanvasAndPost(canvas);
+            }
 
-      @Override
-      public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        // TODO Auto-generated method stub
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                // TODO Auto-generated method stub
 
-      }
+            }
 
-      @Override public void surfaceDestroyed(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                // TODO Auto-generated method stub
 
-      }
-    });
-  }
+            }
+        });
+    }
 
-  protected void drawSomething(Canvas canvas) {
-    canvas.drawColor(Color.RED);
-    canvas.drawBitmap(bmpIcon, getWidth() / 2, getHeight() / 2, null);
-  }
+    protected void drawSomething(Canvas canvas) {
+        canvas.drawColor(Color.RED);
+        canvas.drawBitmap(bmpIcon, getWidth() / 2, getHeight() / 2, null);
+    }
 }

@@ -9,11 +9,11 @@ package com.tarek360.instacapture.exception;
  */
 public class ActivityNotRunningException extends RuntimeException {
 
-  public ActivityNotRunningException() {
-  }
+    public ActivityNotRunningException() {
+    }
 
-  public ActivityNotRunningException(String name) {
-    super(name);
-  }
+    public ActivityNotRunningException(String name) {
+        super(name);
+    }
 }
 

@@ -8,42 +8,42 @@ import android.util.Log;
  */
 public final class Logger {
 
-  private static final String TAG = "InstaCapture";
+    private static final String TAG = "InstaCapture";
 
-  private static boolean enable;
+    private static boolean enable;
 
-  private Logger() {
-  }
-
-  public static void enable() {
-    enable = true;
-  }
-
-  public static void disable() {
-    enable = false;
-  }
-
-  public static void d(@NonNull final CharSequence message) {
-    if (enable) {
-      Log.d(TAG, message.toString());
+    private Logger() {
     }
-  }
 
-  public static void w(@NonNull final CharSequence message) {
-    if (enable) {
-      Log.w(TAG, message.toString());
+    public static void enable() {
+        enable = true;
     }
-  }
 
-  public static void e(@NonNull final CharSequence message) {
-    if (enable) {
-      Log.e(TAG, message.toString());
+    public static void disable() {
+        enable = false;
     }
-  }
 
-  public static void printStackTrace(@NonNull final Throwable throwable) {
-    if (enable) {
-      Log.e(TAG, "Logging caught exception", throwable);
+    public static void d(@NonNull final CharSequence message) {
+        if (enable) {
+            Log.d(TAG, message.toString());
+        }
     }
-  }
+
+    public static void w(@NonNull final CharSequence message) {
+        if (enable) {
+            Log.w(TAG, message.toString());
+        }
+    }
+
+    public static void e(@NonNull final CharSequence message) {
+        if (enable) {
+            Log.e(TAG, message.toString());
+        }
+    }
+
+    public static void printStackTrace(@NonNull final Throwable throwable) {
+        if (enable) {
+            Log.e(TAG, "Logging caught exception", throwable);
+        }
+    }
 }

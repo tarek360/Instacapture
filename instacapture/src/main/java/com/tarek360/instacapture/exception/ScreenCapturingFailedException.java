@@ -9,7 +9,7 @@ package com.tarek360.instacapture.exception;
  */
 public final class ScreenCapturingFailedException extends RuntimeException {
 
-  public ScreenCapturingFailedException(Exception e) {
-    super(e);
-  }
+    public ScreenCapturingFailedException(Exception e) {
+        super(e);
+    }
 }
