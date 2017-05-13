@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
+  packagingOptions{
+    exclude 'META-INF/rxjava.properties'
+  }
+
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
 
