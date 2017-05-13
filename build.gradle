@@ -36,10 +36,11 @@ ext {
   buildToolsVersion = '24.0.2'
 
   // Dependencies versions
-  supportLibraryVersion = '24.2.1'
+  supportLibraryVersion = '25.0.1'
   butterknifeVersion = '8.4.0'
   picassoVersion = '2.5.2'
-  rxandroidVersion = '1.2.0'
-  rxjavaVersion = '1.1.9'
+  rxandroidVersion = '2.0.1'
+  rxjavaVersion = '2.0.3'
   junitVersion = '4.12'
+  rxjava2interopVersion = '0.8.1'
 }
