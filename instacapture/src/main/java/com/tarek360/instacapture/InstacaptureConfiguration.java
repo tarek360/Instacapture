@@ -3,21 +3,21 @@ package com.tarek360.instacapture;
 /**
  * Created by tarek on 5/17/16.
  */
-public class InstaCaptureConfiguration {
+class InstacaptureConfiguration {
 
     final boolean logging;
 
-    private InstaCaptureConfiguration(final Builder builder) {
+    private InstacaptureConfiguration(final Builder builder) {
 
         logging = builder.logging;
     }
 
-    public static InstaCaptureConfiguration createDefault() {
+    public static InstacaptureConfiguration createDefault() {
         return new Builder().build();
     }
 
     /**
-     * Builder for {@link InstaCaptureConfiguration}
+     * Builder for {@link InstacaptureConfiguration}
      */
     public static class Builder {
 
@@ -29,10 +29,10 @@ public class InstaCaptureConfiguration {
         }
 
         /**
-         * Builds configured {@link InstaCaptureConfiguration} object
+         * Builds configured {@link InstacaptureConfiguration} object
          */
-        public InstaCaptureConfiguration build() {
-            return new InstaCaptureConfiguration(this);
+        public InstacaptureConfiguration build() {
+            return new InstacaptureConfiguration(this);
         }
     }
 }

@@ -8,7 +8,7 @@ import android.util.Log;
  */
 public final class Logger {
 
-    private static final String TAG = "InstaCapture";
+    private static final String TAG = "Instacapture";
 
     private static boolean enable;
 

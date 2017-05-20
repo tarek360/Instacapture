@@ -1,4 +1,4 @@
-# InstaCapture [![Release](https://jitpack.io/v/tarek360/instacapture.svg)](https://jitpack.io/#tarek360/instacapture)
+# Instacapture 2.0 [![Release](https://jitpack.io/v/tarek360/instacapture.svg)](https://jitpack.io/#tarek360/instacapture)
 
 Android library to capture screenshot from your app
 
@@ -20,7 +20,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:1.2.2"
+	 compile "com.github.tarek360:instacapture:2.0.0-beta"
 }
 ```
 
@@ -35,59 +35,47 @@ allprojects {
 ```
 
 
-### How to use InstaCapture ?
+### How to use Instacapture ?
 
-- To capture a screenshot with ScreenCaptureListener.
 ```java
-   InstaCapture.getInstance(activity).capture().setScreenCapturingListener(new ScreenCaptureListener() {
-
-      @Override public void onCaptureStarted() {
-          //TODO..
-      }
-      @Override public void onCaptureFailed(Throwable e) {
-          //TODO..
-      }
-      @Override public void onCaptureComplete(Bitmap bitmap) {
-          //TODO..
-      }
-    });
+Instacapture.capture(activity, new SimpleScreenCapturingListener() {
+    @Override
+    public void onCaptureComplete(Bitmap bitmap) {
+       //Your code here..
+    }
+}, ignoredViews);
+	
 ```
 
 ## OR
 
-- To capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html) to avoid ugly callback chains.
+- Capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html).
 ```java
-InstaCapture.getInstance(activity).captureRx().subscribe(new Subscriber<Bitmap>() {
-      @Override public void onCompleted() {
-        //TODO..
-      }
-
-      @Override public void onError(Throwable e) {
-        //TODO..
-      }
-
-      @Override public void onNext(Bitmap bitmap) {
-        //TODO..
-      }
-    });
+Instacapture.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
+    @Override
+    public void call(Bitmap bitmap) {
+       //Your code here..
+    }
+});
 ```
     
 - To ignore view(s) from the screenshot.
 ```java
-.capture(ignoredView); or .captureRx(ignoredView);
+Instacapture.capture(.., .., ignoredViews);
+//or
+Instacapture.captureRx(.., ignoredViews);
 ```
 
 
-- To enable logging.
+- To enable Instacapture logging.
 ```java
-InstaCaptureConfiguration config = new InstaCaptureConfiguration.Builder().logging(true).build();
-InstaCapture.setConfiguration(config);
+Instacapture.enableLogging(true);
 ```
 
 
 ## License
 
->Copyright 2016 Tarek360
+>Copyright 2017 Tarek360
 
 >Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

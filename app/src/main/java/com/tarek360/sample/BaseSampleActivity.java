@@ -7,8 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.tarek360.instacapture.InstaCapture;
-import com.tarek360.instacapture.InstaCaptureConfiguration;
+import com.tarek360.instacapture.Instacapture;
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener;
 import com.tarek360.sample.uncapturableViews.AlertDialogFragment;
 import com.tarek360.sample.utility.Utility;
@@ -25,11 +24,7 @@ public abstract class BaseSampleActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Create new configuration and set Configuration to InstaCapture.
-        final InstaCaptureConfiguration config =
-                new InstaCaptureConfiguration.Builder().logging(true).build();
-        InstaCapture.setConfiguration(config);
+        Instacapture.enableLogging(true);
     }
 
     @Override
@@ -43,35 +38,33 @@ public abstract class BaseSampleActivity extends AppCompatActivity
                 .show(getSupportFragmentManager(), "dialogFragment");
     }
 
-    protected void captureScreenshot() {
-        captureScreenshot(null);
-    }
+    protected void captureScreenshot(@Nullable View... ignoredViews) {
 
-    protected void captureScreenshot(@Nullable View... views) {
-        InstaCapture.getInstance(this)
-                .capture(views)
-                .setScreenCapturingListener(new SimpleScreenCapturingListener() {
+        Instacapture.capture(this, new SimpleScreenCapturingListener() {
+            @Override
+            public void onCaptureComplete(Bitmap bitmap) {
 
-                    @Override
-                    public void onCaptureStarted() {
-                        super.onCaptureStarted();
-                    }
+                Utility.getScreenshotFileObservable(BaseSampleActivity.this, bitmap)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<File>() {
+                            @Override
+                            public void call(File file) {
 
-                    @Override
-                    public void onCaptureComplete(Bitmap bitmap) {
+                                startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
+                                        file.getAbsolutePath()));
+                            }
+                        });
+            }
+        }, ignoredViews);
 
-                        Utility.getScreenshotFileObservable(BaseSampleActivity.this, bitmap)
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new Action1<File>() {
-                                    @Override
-                                    public void call(File file) {
 
-                                        startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
-                                                file.getAbsolutePath()));
-                                    }
-                                });
-                    }
-                });
+        Instacapture.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
+            @Override
+            public void call(Bitmap bitmap) {
+
+            }
+        });
+
     }
 
     @Override
