@@ -24,7 +24,7 @@ public abstract class BaseSampleActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Instacapture.enableLogging(true);
+        Instacapture.INSTANCE.enableLogging(true);
     }
 
     @Override
@@ -40,7 +40,7 @@ public abstract class BaseSampleActivity extends AppCompatActivity
 
     protected void captureScreenshot(@Nullable View... ignoredViews) {
 
-        Instacapture.capture(this, new SimpleScreenCapturingListener() {
+        Instacapture.INSTANCE.capture(this, new SimpleScreenCapturingListener() {
             @Override
             public void onCaptureComplete(Bitmap bitmap) {
 
@@ -58,7 +58,7 @@ public abstract class BaseSampleActivity extends AppCompatActivity
         }, ignoredViews);
 
 
-        Instacapture.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
+        Instacapture.INSTANCE.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
             @Override
             public void call(Bitmap bitmap) {
 

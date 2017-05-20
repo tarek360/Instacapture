@@ -95,7 +95,7 @@ public final class Utility {
                     subscriber.onNext(screenshotFile);
                     subscriber.onCompleted();
 
-                    Logger.d("Screenshot saved to " + screenshotFile.getAbsolutePath());
+                    Logger.INSTANCE.d("Screenshot saved to " + screenshotFile.getAbsolutePath());
                 } catch (final IOException e) {
                     subscriber.onError(e);
                 } finally {

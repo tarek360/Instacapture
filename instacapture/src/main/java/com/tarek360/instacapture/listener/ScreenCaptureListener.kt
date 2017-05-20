@@ -1,34 +1,34 @@
-package com.tarek360.instacapture.listener;
+package com.tarek360.instacapture.listener
 
-import android.graphics.Bitmap;
+import android.graphics.Bitmap
 
 /**
  * Created by tarek on 5/17/16.
  */
 
 /**
- * Listener for image loading process.<br />
- * You can use {@link SimpleScreenCapturingListener} for implementing only needed methods.
- *
+ * Listener for image loading process.<br></br>
+ * You can use [SimpleScreenCapturingListener] for implementing only needed methods.
+
  * @see SimpleScreenCapturingListener
  */
 
-public interface ScreenCaptureListener {
+interface ScreenCaptureListener {
 
     /**
      * Is called when screen capturing task was started
      */
-    void onCaptureStarted();
+    fun onCaptureStarted()
 
     /**
      * Is called when an error was occurred during screen capturing
      */
-    void onCaptureFailed(Throwable e);
+    fun onCaptureFailed(e: Throwable)
 
     /**
      * Is called when image is loaded successfully (and displayed in View if one was specified)
-     *
+
      * @param bitmap Captured screen bitmap
      */
-    void onCaptureComplete(Bitmap bitmap);
+    fun onCaptureComplete(bitmap: Bitmap)
 }

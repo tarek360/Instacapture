@@ -20,7 +20,7 @@ Add this to your module `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	 compile "com.github.tarek360:instacapture:2.0.0-beta"
+	 compile "com.github.tarek360:instacapture:kotlin-2.0.0-beta"
 }
 ```
 

@@ -6,7 +6,7 @@ import android.view.WindowManager
 /**
  * Created by tarek on 5/18/16.
  */
-class RootViewInfo(val view: View, val layoutParams: WindowManager.LayoutParams) {
+class RootViewInfo(val view: View, val layoutParams: WindowManager.LayoutParams?) {
     val top: Int
     val left: Int
 
