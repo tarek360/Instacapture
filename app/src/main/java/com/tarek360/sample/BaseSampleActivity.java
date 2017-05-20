@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.tarek360.instacapture.Instacapture;
-import com.tarek360.instacapture.listener.SimpleScreenCapturingListener;
 import com.tarek360.sample.uncapturableViews.AlertDialogFragment;
 import com.tarek360.sample.utility.Utility;
 
@@ -40,10 +39,9 @@ public abstract class BaseSampleActivity extends AppCompatActivity
 
     protected void captureScreenshot(@Nullable View... ignoredViews) {
 
-        Instacapture.INSTANCE.capture(this, new SimpleScreenCapturingListener() {
+        Instacapture.INSTANCE.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
             @Override
-            public void onCaptureComplete(Bitmap bitmap) {
-
+            public void call(Bitmap bitmap) {
                 Utility.getScreenshotFileObservable(BaseSampleActivity.this, bitmap)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Action1<File>() {
@@ -54,14 +52,6 @@ public abstract class BaseSampleActivity extends AppCompatActivity
                                         file.getAbsolutePath()));
                             }
                         });
-            }
-        }, ignoredViews);
-
-
-        Instacapture.INSTANCE.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
-            @Override
-            public void call(Bitmap bitmap) {
-
             }
         });
 

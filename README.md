@@ -37,39 +37,71 @@ allprojects {
 
 ### How to use Instacapture ?
 
+#### Kotlin
+
+```kotlin
+Instacapture.capture(this, object : SimpleScreenCapturingListener() {
+    override fun onCaptureComplete(bitmap: Bitmap) {
+       //Your code here..
+
+    }
+})
+
+// or in Rx way
+Instacapture.captureRx(this).subscribe { bitmap ->
+   //Your code here..
+}
+```
+
+#### Java
+
 ```java
-Instacapture.capture(activity, new SimpleScreenCapturingListener() {
+Instacapture.INSTANCE.capture(activity, new SimpleScreenCapturingListener() {
     @Override
     public void onCaptureComplete(Bitmap bitmap) {
        //Your code here..
     }
 }, ignoredViews);
-	
-```
 
-## OR
-
-- Capture a screenshot with [RxJava](https://github.com/ReactiveX/RxJava) [Observable](http://reactivex.io/RxJava/javadoc/rx/Observable.html).
-```java
-Instacapture.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
+// or in Rx way
+Instacapture.INSTANCE.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
     @Override
     public void call(Bitmap bitmap) {
-       //Your code here..
-    }
+        //Your code here..
+     }
 });
+
 ```
     
-- To ignore view(s) from the screenshot.
-```java
-Instacapture.capture(.., .., ignoredViews);
+### How to ignore view(s) from the screenshot?
+
+#### Kotlin
+
+```kotlin
+Instacapture.capture(.., .., ignoredViews)
 //or
-Instacapture.captureRx(.., ignoredViews);
+Instacapture.captureRx(.., ignoredViews)
+```
+#### Java
+
+```java
+Instacapture.INSTANCE.capture(.., .., ignoredViews);
+//or
+Instacapture.INSTANCE.captureRx(.., ignoredViews);
 ```
 
 
 - To enable Instacapture logging.
-```java
+
+#### Kotlin
+
+```kotlin
 Instacapture.enableLogging(true);
+```
+#### Java
+
+```java
+Instacapture.INSTANCE.enableLogging(true);
 ```
 
 
