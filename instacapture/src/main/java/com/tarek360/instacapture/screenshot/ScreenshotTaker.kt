@@ -119,7 +119,7 @@ object ScreenshotTaker {
         val result = ArrayList<View>()
 
         val viewGroup = v
-        for (i in 0..viewGroup.childCount - 1) {
+        for (i in 0 until viewGroup.childCount) {
 
             val child = viewGroup.getChildAt(i)
 
@@ -186,7 +186,7 @@ object ScreenshotTaker {
             var i = 0
             var k = 0
             while (i < height) {
-                for (j in 0..width - 1) {
+                for (j in 0 until width) {
                     val pix = b[i * width + j]
                     val pb = pix shr 16 and 0xFF
                     val pr = pix shl 16 and 0xFF0000

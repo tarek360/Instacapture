@@ -56,7 +56,7 @@ object Instacapture {
         val screenshotProvider = ScreenshotProvider()
 
         return screenshotProvider.getScreenshotBitmap(validatedActivity,
-                ignoredViews.asList().toTypedArray()).observeOn(AndroidSchedulers.mainThread())
+                arrayOf(*ignoredViews)).observeOn(AndroidSchedulers.mainThread())
     }
 
     /**

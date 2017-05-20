@@ -11,8 +11,6 @@ import rx.Observable
  */
 class ScreenshotProvider {
 
-    fun getScreenshotBitmap(activity: Activity, removedViews: Array<View>): Observable<Bitmap> {
-
-        return ViewsBitmapObservable[activity, removedViews]
-    }
+    fun getScreenshotBitmap(activity: Activity, removedViews: Array<View>): Observable<Bitmap> =
+            ViewsBitmapObservable[activity, removedViews]
 }
