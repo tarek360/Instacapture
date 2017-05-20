@@ -48,7 +48,7 @@ object ScreenshotTaker {
         }
 
         val viewRoots = FieldHelper.getRootViews(activity)
-        Logger.d("viewRoots count: " + viewRoots.size)
+
         val main = activity.window.decorView
 
         val bitmap: Bitmap

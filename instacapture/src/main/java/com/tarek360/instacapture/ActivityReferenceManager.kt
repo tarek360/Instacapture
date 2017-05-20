@@ -10,19 +10,19 @@ import java.lang.ref.WeakReference
  */
 class ActivityReferenceManager {
 
-    private var mActivity: WeakReference<Activity>? = null
+    private var activity: WeakReference<Activity>? = null
 
     fun setActivity(activity: Activity) {
-        this.mActivity = WeakReference(activity)
+        this.activity = WeakReference(activity)
     }
 
     val validatedActivity: Activity?
         get() {
-            if (mActivity == null) {
+            if (activity == null) {
                 return null
             }
 
-            val activity = mActivity!!.get()
+            val activity = activity!!.get()
             if (!isActivityValid(activity)) {
                 return null
             }
