@@ -5,27 +5,27 @@
   <item
       android:id="@+id/capture1"
       android:orderInCategory="100"
-      android:title="capture"
+      android:title="capture 1"
       app:showAsAction="never"/>
   <item
       android:id="@+id/capture2"
       android:orderInCategory="100"
-      android:title="capture"
+      android:title="capture 2"
       app:showAsAction="never"/>
   <item
       android:id="@+id/capture3"
       android:orderInCategory="100"
-      android:title="capture"
+      android:title="capture 3"
       app:showAsAction="never"/>
   <item
       android:id="@+id/capture4"
       android:orderInCategory="100"
-      android:title="capture"
+      android:title="capture 4"
       app:showAsAction="never"/>
   <item
       android:id="@+id/capture5"
       android:orderInCategory="100"
-      android:title="capture"
+      android:title="capture 5"
       app:showAsAction="never"/>
 
 </menu>

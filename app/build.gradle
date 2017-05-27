@@ -12,6 +12,7 @@ android {
 
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -19,6 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/'] } }
 }
 
 dependencies {
@@ -30,5 +32,9 @@ dependencies {
     apt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
     compile('com.google.android.gms:play-services-maps:8.4.0')
+
+    androidTestCompile 'com.android.support:support-annotations:25.3.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+
     compile project(path: ':instacapture')
 }
