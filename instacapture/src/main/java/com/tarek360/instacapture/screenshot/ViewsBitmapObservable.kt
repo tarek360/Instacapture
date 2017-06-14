@@ -15,7 +15,7 @@ import rx.functions.Func0
 object ViewsBitmapObservable {
 
     operator fun get(activity: Activity,
-                     removedViews: Array<View>?): Observable<Bitmap> {
+                     removedViews: Array<out View>?): Observable<Bitmap> {
 
         return Observable.defer {
             val screenBitmap = ScreenshotTaker.getScreenshotBitmap(activity, removedViews)

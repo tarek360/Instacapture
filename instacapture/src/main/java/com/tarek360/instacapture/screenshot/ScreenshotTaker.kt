@@ -36,7 +36,7 @@ object ScreenshotTaker {
      * @throws ScreenCapturingFailedException if unexpected error is occurred during capturing
      * *                                        screenshot
      */
-    fun getScreenshotBitmap(activity: Activity?, ignoredViews: Array<View>?): Bitmap? {
+    fun getScreenshotBitmap(activity: Activity?, ignoredViews: Array<out View>?): Bitmap? {
         if (activity == null) {
             throw IllegalArgumentException("Parameter activity cannot be null.")
         }
@@ -65,7 +65,7 @@ object ScreenshotTaker {
 
     //static int count = 0 ;
     private fun drawRootsToBitmap(viewRoots: List<RootViewInfo>, bitmap: Bitmap,
-                                  ignoredViews: Array<View>?) {
+                                  ignoredViews: Array<out View>?) {
         //count = 0;
         for (rootData in viewRoots) {
             drawRootToBitmap(rootData, bitmap, ignoredViews)
@@ -73,7 +73,7 @@ object ScreenshotTaker {
     }
 
     private fun drawRootToBitmap(rootViewInfo: RootViewInfo, bitmap: Bitmap,
-                                 ignoredViews: Array<View>?) {
+                                 ignoredViews: Array<out View>?) {
 
         // support dim screen
         if (rootViewInfo.layoutParams!!.flags and WindowManager.LayoutParams.FLAG_DIM_BEHIND
