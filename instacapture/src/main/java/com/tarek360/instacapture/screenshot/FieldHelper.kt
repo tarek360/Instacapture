@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
+import java.lang.reflect.Field
 import java.util.*
 
 /**
@@ -21,56 +22,88 @@ internal object FieldHelper {
     fun getRootViews(activity: Activity): List<RootViewInfo> {
         val rootViews = ArrayList<RootViewInfo>()
 
-        val windowManager: Any
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            windowManager = getFieldValue(FIELD_NAME_GLOBAL, activity.windowManager)!!
+        val windowManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            getFieldValue(FIELD_NAME_GLOBAL, activity.windowManager)!!
         } else {
-            windowManager = getFieldValue(FIELD_NAME_WINDOW_MANAGER, activity.windowManager)!!
+            getFieldValue(FIELD_NAME_WINDOW_MANAGER, activity.windowManager)!!
         }
 
         val rootObjects = getFieldValue(FIELD_NAME_ROOTS, windowManager)
         val paramsObject = getFieldValue(FIELD_NAME_PARAMS, windowManager)
 
-        val viewRoots: Array<Any?>
+        val viewRoots: Array<Any>
         val params: Array<WindowManager.LayoutParams?>
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            viewRoots = (rootObjects as List<*>).toTypedArray()
+            viewRoots = toArray(rootObjects as List<*>)
             val paramsList = paramsObject as List<WindowManager.LayoutParams>
             params = paramsList.toTypedArray()
         } else {
-            viewRoots = rootObjects as Array<Any?>
+            viewRoots = rootObjects as Array<Any>
             params = paramsObject as Array<WindowManager.LayoutParams?>
         }
+
         for (i in viewRoots.indices) {
-            val view = getFieldValue(FIELD_NAME_VIEW, viewRoots[i])
-            if (view == null) {
-                val views = getFieldValue(FIELD_NAME_VIEWS, windowManager) as ArrayList<View>
-                if (views != null && views.size > 0) {
-                    views.filter { it.visibility == View.VISIBLE }
-                            .mapTo(rootViews) { RootViewInfo(it, params[i]) }
-                }
-            } else {
-                val view = view as View
+            val any = getFieldValue(FIELD_NAME_VIEW, viewRoots[i])
+            if (any != null) {
+                val view = any as View
                 if (view.visibility == View.VISIBLE) {
                     rootViews.add(RootViewInfo(view, params[i]))
                 }
             }
+        }
 
+        if(rootViews.isEmpty()){
+            val viewObjects = getFieldValue(FIELD_NAME_VIEWS, windowManager)
+
+            val views = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                (viewObjects as ArrayList<View>).toTypedArray()
+            } else {
+                viewObjects as Array<View>
+            }
+
+            if (views.isNotEmpty()) {
+                views.mapIndexedTo(rootViews) { i, view ->
+                            RootViewInfo(view, params[i]) }
+            }
         }
 
         return rootViews
     }
 
+
     @Throws(NoSuchFieldException::class, IllegalAccessException::class)
     private fun getFieldValue(fieldName: String, target: Any?): Any? {
-        try {
-            val field = target?.javaClass?.getDeclaredField(fieldName)
+        return try {
+
+            val field = if (fieldName == FIELD_NAME_WINDOW_MANAGER) {
+                findField(fieldName, target!!.javaClass)
+            } else {
+                target?.javaClass?.getDeclaredField(fieldName)
+            }
             field?.isAccessible = true
-            return field?.get(target)
+            field?.get(target)
         } catch (e: Exception) {
             e.printStackTrace()
-            return null;
+            null
         }
+    }
+
+    @Throws(NoSuchFieldException::class)
+    private fun findField(name: String, clazz: Class<*>): Field {
+        var currentClass: Class<*> = clazz
+        while (currentClass != Any::class.java) {
+            currentClass.declaredFields
+                    .filter { name == it.name }
+                    .forEach { return it }
+
+            currentClass = currentClass.superclass
+        }
+        throw NoSuchFieldException(
+                "Field: " + name + " is not found in class: " + clazz.toString())
+    }
+
+    private inline fun <reified T> toArray(list: List<*>): Array<T> {
+        return (list as List<T>).toTypedArray()
     }
 }
