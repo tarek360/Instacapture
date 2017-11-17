@@ -16,6 +16,7 @@ internal object FieldHelper {
     private val FIELD_NAME_ROOTS = "mRoots"
     private val FIELD_NAME_PARAMS = "mParams"
     private val FIELD_NAME_VIEW = "mView"
+    private val FIELD_NAME_VIEWS = "mViews"
 
     fun getRootViews(activity: Activity): List<RootViewInfo> {
         val rootViews = ArrayList<RootViewInfo>()
@@ -41,17 +42,21 @@ internal object FieldHelper {
             viewRoots = rootObjects as Array<Any?>
             params = paramsObject as Array<WindowManager.LayoutParams?>
         }
-
         for (i in viewRoots.indices) {
-
-            try {
-                val view = getFieldValue(FIELD_NAME_VIEW, viewRoots[i]) as View
+            val view = getFieldValue(FIELD_NAME_VIEW, viewRoots[i])
+            if (view == null) {
+                val views = getFieldValue(FIELD_NAME_VIEWS, windowManager) as ArrayList<View>
+                if (views != null && views.size > 0) {
+                    views.filter { it.visibility == View.VISIBLE }
+                            .mapTo(rootViews) { RootViewInfo(it, params[i]) }
+                }
+            } else {
+                val view = view as View
                 if (view.visibility == View.VISIBLE) {
                     rootViews.add(RootViewInfo(view, params[i]))
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
+
         }
 
         return rootViews
@@ -59,9 +64,13 @@ internal object FieldHelper {
 
     @Throws(NoSuchFieldException::class, IllegalAccessException::class)
     private fun getFieldValue(fieldName: String, target: Any?): Any? {
-
-        val field = target?.javaClass?.getDeclaredField(fieldName)
-        field?.isAccessible = true
-        return field?.get(target)
+        try {
+            val field = target?.javaClass?.getDeclaredField(fieldName)
+            field?.isAccessible = true
+            return field?.get(target)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null;
+        }
     }
 }
