@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tarek360.sample">
 
+  <uses-permission android:name="android.permission.CAMERA" />
 
   <application
+      android:name=".App"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
@@ -37,8 +39,8 @@
           android:value="com.tarek360.sample.MainActivity"/>
     </activity>
     <activity
-        android:name=".DialogSampleActivity"
-        android:label="@string/sample_dialog"
+        android:name=".DialogAndMenuSampleActivity"
+        android:label="@string/sample_dialog_and_menu"
         android:parentActivityName=".MainActivity">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
@@ -73,6 +75,15 @@
           android:value="com.tarek360.sample.MainActivity"/>
     </activity>
 
+    <activity
+        android:name=".GLSurfaceViewSampleActivity"
+        android:label="@string/sample_gl_surface_view"
+        android:parentActivityName=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="com.tarek360.sample.MainActivity"/>
+    </activity>
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"

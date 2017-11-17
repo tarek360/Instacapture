@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="@string/sample_dialog"/>
+        android:text="@string/sample_dialog_and_menu"/>
 
     <Button
         android:id="@+id/sample_map_dialog"
@@ -53,5 +53,13 @@
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
         android:text="@string/sample_custom_view"/>
+
+    <Button
+        android:id="@+id/sample_gl_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="@string/sample_gl_surface_view"/>
+
   </LinearLayout>
 </ScrollView>

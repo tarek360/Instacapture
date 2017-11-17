@@ -2,7 +2,9 @@ package com.tarek360.sample;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import butterknife.Bind;
+import android.view.View;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -10,17 +12,20 @@ import butterknife.OnClick;
  */
 public class MapFragmentSampleActivity extends BaseSampleActivity {
 
-  @Bind(R.id.toolbar) public Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_map_fragment);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map_fragment);
 
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-  }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-  @OnClick(R.id.fab) public void onClickFAB() {
-    captureScreenshot();
-  }
+    @OnClick(R.id.fab)
+    public void onClickFAB(View view) {
+        captureScreenshot(view);
+    }
 }

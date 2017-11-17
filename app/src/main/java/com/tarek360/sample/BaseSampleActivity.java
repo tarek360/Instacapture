@@ -1,67 +1,69 @@
 package com.tarek360.sample;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import butterknife.ButterKnife;
-import com.tarek360.instacapture.InstaCapture;
-import com.tarek360.instacapture.InstaCaptureConfiguration;
-import com.tarek360.instacapture.listener.SimpleScreenCapturingListener;
-import com.tarek360.sample.dialog.AlertDialogFragment;
+
+import com.tarek360.instacapture.Instacapture;
+import com.tarek360.sample.uncapturableViews.AlertDialogFragment;
+import com.tarek360.sample.utility.Utility;
+
 import java.io.File;
 
+import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+
 public abstract class BaseSampleActivity extends AppCompatActivity
-    implements AlertDialogFragment.OnAlertDialogListener {
+        implements AlertDialogFragment.OnAlertDialogListener {
 
-  private AlertDialogFragment mAlertDialogFragment;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Instacapture.INSTANCE.enableLogging(true);
+    }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
+    }
 
-    // Create new configuration and set Configuration to InstaCapture.
-    final InstaCaptureConfiguration config =
-        new InstaCaptureConfiguration.Builder().logging(true).build();
-    InstaCapture.setConfiguration(config);
-  }
+    protected void showAlertDialog() {
+        AlertDialogFragment.newInstance(R.string.dialog_title, R.string.dialog_message)
+                .show(getSupportFragmentManager(), "dialogFragment");
+    }
 
-  @Override public void setContentView(@LayoutRes int layoutResID) {
-    super.setContentView(layoutResID);
-    ButterKnife.bind(this);
-  }
+    protected void captureScreenshot(@Nullable View... ignoredViews) {
 
-  protected void showAlertDialog() {
-    mAlertDialogFragment = new AlertDialogFragment();
-    mAlertDialogFragment.show(getSupportFragmentManager(), "dialogFragment");
-  }
+        Instacapture.INSTANCE.captureRx(this, ignoredViews).subscribe(new Action1<Bitmap>() {
+            @Override
+            public void call(Bitmap bitmap) {
+                Utility.getScreenshotFileObservable(BaseSampleActivity.this, bitmap)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<File>() {
+                            @Override
+                            public void call(File file) {
 
-  protected void captureScreenshot() {
-    captureScreenshot(null);
-  }
-
-  protected void captureScreenshot(@Nullable View[] views) {
-    InstaCapture.getInstance(this)
-        .capture(views)
-        .setScreenCapturingListener(new SimpleScreenCapturingListener() {
-
-          @Override public void onCaptureComplete(File file) {
-            startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
-                file.getAbsolutePath()));
-          }
+                                startActivity(ShowScreenShotActivity.buildIntent(BaseSampleActivity.this,
+                                        file.getAbsolutePath()));
+                            }
+                        });
+            }
         });
-  }
 
-  @Override protected void onStop() {
-    super.onStop();
-  }
+    }
 
-  @Override protected void onDestroy() {
-    super.onDestroy();
-    ButterKnife.unbind(this);
-  }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
-  @Override public void OnPositiveButtonClick() {
-    captureScreenshot();
-  }
+    @Override
+    public void OnPositiveButtonClick() {
+        captureScreenshot();
+    }
 }
