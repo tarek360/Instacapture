@@ -4,10 +4,7 @@ import android.app.Activity
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
-
-import com.tarek360.instacapture.exception.ScreenCapturingFailedException
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by tarek on 5/18/16.
@@ -46,24 +43,25 @@ internal object FieldHelper {
         }
 
         for (i in viewRoots.indices) {
-            val view = getFieldValue(FIELD_NAME_VIEW, viewRoots[i]) as View
-            if (view.visibility == View.VISIBLE) {
-                rootViews.add(RootViewInfo(view, params[i]))
+
+            try {
+                val view = getFieldValue(FIELD_NAME_VIEW, viewRoots[i]) as View
+                if (view.visibility == View.VISIBLE) {
+                    rootViews.add(RootViewInfo(view, params[i]))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 
         return rootViews
     }
 
+    @Throws(NoSuchFieldException::class, IllegalAccessException::class)
     private fun getFieldValue(fieldName: String, target: Any?): Any? {
 
-        try {
-            val field = target?.javaClass?.getDeclaredField(fieldName)
-            field?.isAccessible = true
-            return field?.get(target)
-        } catch (e: Exception) {
-            throw ScreenCapturingFailedException(e)
-        }
-
+        val field = target?.javaClass?.getDeclaredField(fieldName)
+        field?.isAccessible = true
+        return field?.get(target)
     }
 }
