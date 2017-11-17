@@ -39,17 +39,17 @@ android {
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile("com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion") {
+    implementation("com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion") {
         ext.optional = true
     }
-    compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
+    implementation "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
 
-    compile "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
-    compile "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
+    implementation "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
+    implementation "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
 
     // Dependencies for local unit tests
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {
     mavenCentral()
