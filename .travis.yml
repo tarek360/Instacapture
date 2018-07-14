@@ -1,69 +1,47 @@
 language: android
 jdk: oraclejdk8
-sudo: false
-
-notifications:
-    email:
-        - xyz@example.com
-
-env:
-    matrix:
-        - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-    global:
-        - ADB_INSTALL_TIMEOUT=10    #Time out to 10 mins
-
-before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-
-cache:
-  directories:      #Cache all dirs under .gradle folder
-    - $HOME/.gradle/daemon      #Cache daemon logs
-    - $HOME/.gradle/native      #Cache library downloaded from the gradle dependency
-    - $HOME/.gradle/wrapper     #Cache the gradle
 
 android:
-    update_sdk: true
-    components:
-        - platform-tools
-        - tools
-
-        # The BuildTools version used by your project
-        - build-tools-24.0.2
-
-        # The SDK version used to compile your project
-        - android-24
-
-        # Additional components
-        - extra-google-google_play_services
-        - extra-google-m2repository
-        - extra-android-m2repository
-
-        #system images
-        - sys-img-armeabi-v7a-android-19
-
-licenses:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - android-21
+    - android-27
+    - build-tools-27.0.3
+    - android-27
+    - addon-google_apis-google-27
+    - extra-google-google_play_services
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-android-27
+    - sys-img-armeabi-v7a-android-21
+  licenses:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-before_script:
-    - chmod +x gradlew      #Grand permissions
-    - android list targets
-    - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI    #Create AVD for given api
-    - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
-script:
-    - echo "Travis branch is $TRAVIS_BRANCH"
-    - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
-    - android-wait-for-emulator
-    - adb devices   #Display list of devices
-    - adb shell input keyevent 82 &
-    - ./gradlew connectedCheck -PdisablePreDex --stacktrace
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
 
 before_install:
-    - pip install --user codecov    #Install codecov
+  - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
+  - yes | sdkmanager "platforms;android-27"
 
-after_success:
-    - codecov                       #Run codecov
-
-after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
+before_script:
+  - echo "************************ Start Running Unit Tests ************************"
+  - ./gradlew test --stacktrace
+  - android list targets
+  - emulator -list-avds
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &

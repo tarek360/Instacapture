@@ -13,6 +13,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
 
   public void testAddtion() throws Exception {
-    assertEquals(10, 3 + 3);
+    assertEquals(6, 3 + 3);
   }
 }
