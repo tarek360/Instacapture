@@ -7,14 +7,13 @@ import android.view.View
 import com.tarek360.instacapture.exception.IllegalScreenSizeException
 
 import rx.Observable
-import rx.functions.Func0
 
 /**
  * Created by tarek on 5/17/16.
  */
-object ViewsBitmapObservable {
+class ViewsBitmapObservable {
 
-    operator fun get(activity: Activity,
+    fun get(activity: Activity,
                      removedViews: Array<out View>?): Observable<Bitmap> {
 
         return Observable.defer {

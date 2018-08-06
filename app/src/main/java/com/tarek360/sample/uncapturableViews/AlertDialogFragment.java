@@ -35,7 +35,7 @@ public class AlertDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (mOnAlertDialogListener != null) {
-                            mOnAlertDialogListener.OnPositiveButtonClick();
+                            mOnAlertDialogListener.onPositiveButtonClick();
                         }
                     }
                 })
@@ -60,6 +60,6 @@ public class AlertDialogFragment extends DialogFragment {
     }
 
     public interface OnAlertDialogListener {
-        void OnPositiveButtonClick();
+        void onPositiveButtonClick();
     }
 }
