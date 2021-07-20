@@ -215,7 +215,12 @@ object ScreenshotTaker {
         if (textureViewBitmap != null) {
             val paint = Paint()
             paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_ATOP)
-            canvas.drawBitmap(textureViewBitmap, textureViewLocation[0].toFloat(), textureViewLocation[1].toFloat(), paint)
+            val dst = Rect()//dst
+            dst.left =textureViewLocation[0]
+            dst.top = textureViewLocation[1]
+            dst.right = dst.left + textureView.bitmap.width
+            dst.bottom = dst.top+textureView.bitmap.height
+            canvas.drawBitmap(textureViewBitmap, null,dst, paint)
             textureViewBitmap.recycle()
         }
     }
